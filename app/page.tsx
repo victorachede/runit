@@ -258,13 +258,16 @@ export default function Landing() {
       </nav>
 
       {/* Hero */}
-      <section style={{ padding: "7rem 1.5rem 4rem", textAlign: "center", maxWidth: 680, margin: "0 auto" }}>
+      <section style={{ padding: "7rem 1.5rem 4rem", textAlign: "center", maxWidth: 680, margin: "0 auto", position: "relative" }}>
+        {/* Glow */}
+        <div style={{ position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)", width: 600, height: 300, background: "radial-gradient(ellipse, rgba(124,58,237,0.12) 0%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
+        <div style={{ position: "relative", zIndex: 1 }}>
         {/* Badge */}
         <div style={{
           display: "inline-flex", alignItems: "center", gap: "0.5rem",
-          background: "#111", border: "1px solid #1e1e1e",
+          background: "#111", border: "1px solid #2a1f3d",
           padding: "0.3rem 0.75rem", borderRadius: 999,
-          fontSize: "0.73rem", color: "#555", marginBottom: "2.25rem",
+          fontSize: "0.73rem", color: "#666", marginBottom: "2.25rem",
           letterSpacing: "0.02em"
         }}>
           <div style={{ width: 5, height: 5, background: "#22c55e", borderRadius: "50%", boxShadow: "0 0 6px #22c55e55" }} />
@@ -278,7 +281,7 @@ export default function Landing() {
         }}>
           Automate your business.<br />
           <span style={{
-            background: "linear-gradient(135deg, #555 0%, #333 100%)",
+            background: "linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)",
             WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"
           }}>
             Just describe it.
@@ -316,7 +319,7 @@ export default function Landing() {
         </div>
 
         {/* Channel logos row */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1.5rem", marginBottom: "4rem", opacity: 0.5 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1.5rem", marginBottom: "4rem", opacity: 0.75 }}>
           <GmailIcon size={22} />
           <WhatsAppIcon size={22} />
           <TelegramIcon size={22} />
@@ -326,19 +329,18 @@ export default function Landing() {
 
         {/* Demo */}
         <div id="demo">
-          <p style={{ fontSize: "0.7rem", color: "#2a2a2a", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "1.25rem" }}>
+          <p style={{ fontSize: "0.7rem", color: "#444", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "1.25rem" }}>
             Interactive demo — click a channel
           </p>
           <Demo />
         </div>
+        </div>
       </section>
-
-      {/* Divider */}
       <div style={{ height: 1, background: "linear-gradient(90deg, transparent, #1e1e1e 30%, #1e1e1e 70%, transparent)", margin: "3rem 0" }} />
 
       {/* How it works */}
       <section style={{ padding: "4rem 1.5rem", maxWidth: 840, margin: "0 auto" }}>
-        <p style={{ fontSize: "0.7rem", color: "#333", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.875rem" }}>Process</p>
+        <p style={{ fontSize: "0.7rem", color: "#a78bfa", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.875rem" }}>Process</p>
         <h2 style={{ fontSize: "clamp(1.6rem, 4vw, 2.25rem)", fontWeight: 700, letterSpacing: "-0.03em", color: "#e0e0e0", marginBottom: "3rem" }}>
           Three steps. That's it.
         </h2>
@@ -349,7 +351,7 @@ export default function Landing() {
             { n: "03", title: "It runs", body: "Your automation goes live. Messages sent, on time, every time." },
           ].map(s => (
             <div key={s.n} style={{ background: "#0a0a0a", padding: "2rem 1.75rem" }}>
-              <div style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.68rem", color: "#252525", marginBottom: "1.25rem", letterSpacing: "0.05em" }}>{s.n}</div>
+              <div style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.68rem", color: "#a78bfa", marginBottom: "1.25rem", letterSpacing: "0.05em" }}>{s.n}</div>
               <h3 style={{ fontSize: "1.05rem", fontWeight: 600, color: "#c8c8c8", marginBottom: "0.6rem", letterSpacing: "-0.02em" }}>{s.title}</h3>
               <p style={{ color: "#444", fontSize: "0.875rem", lineHeight: 1.65 }}>{s.body}</p>
             </div>
@@ -359,7 +361,7 @@ export default function Landing() {
 
       {/* Channels */}
       <section style={{ padding: "4rem 1.5rem", maxWidth: 840, margin: "0 auto" }}>
-        <p style={{ fontSize: "0.7rem", color: "#333", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.875rem" }}>Channels</p>
+        <p style={{ fontSize: "0.7rem", color: "#a78bfa", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.875rem" }}>Channels</p>
         <h2 style={{ fontSize: "clamp(1.6rem, 4vw, 2.25rem)", fontWeight: 700, letterSpacing: "-0.03em", color: "#e0e0e0", marginBottom: "2.5rem" }}>
           Every channel your customers use.
         </h2>
@@ -390,7 +392,7 @@ export default function Landing() {
 
       {/* Pricing */}
       <section style={{ padding: "4rem 1.5rem 6rem", maxWidth: 440, margin: "0 auto", textAlign: "center" }}>
-        <p style={{ fontSize: "0.7rem", color: "#333", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.875rem" }}>Pricing</p>
+        <p style={{ fontSize: "0.7rem", color: "#a78bfa", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.875rem" }}>Pricing</p>
         <h2 style={{ fontSize: "clamp(1.6rem, 4vw, 2.25rem)", fontWeight: 700, letterSpacing: "-0.03em", color: "#e0e0e0", marginBottom: "2.5rem" }}>
           One plan. Everything in.
         </h2>
@@ -398,12 +400,12 @@ export default function Landing() {
           background: "#0f0f0f", border: "1px solid #1e1e1e", borderRadius: 18, padding: "2.25rem",
           boxShadow: "0 0 0 1px rgba(255,255,255,0.02) inset"
         }}>
-          <div style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.65rem", color: "#333", letterSpacing: "0.12em", marginBottom: "0.875rem" }}>PRO</div>
+          <div style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.65rem", color: "#a78bfa", letterSpacing: "0.12em", marginBottom: "0.875rem" }}>PRO</div>
           <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: "0.25rem", marginBottom: "0.4rem" }}>
             <span style={{ fontSize: "3rem", fontWeight: 700, color: "#e0e0e0", letterSpacing: "-0.04em" }}>₦5,000</span>
-            <span style={{ color: "#333", fontSize: "0.875rem" }}>/month</span>
+            <span style={{ color: "#555", fontSize: "0.875rem" }}>/month</span>
           </div>
-          <p style={{ color: "#333", fontSize: "0.82rem", marginBottom: "2rem" }}>Pay in Naira via Paystack. Cancel anytime.</p>
+          <p style={{ color: "#555", fontSize: "0.82rem", marginBottom: "2rem" }}>Pay in Naira via Paystack. Cancel anytime.</p>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem", marginBottom: "2rem", textAlign: "left" }}>
             {[
               "Unlimited automations",
@@ -412,8 +414,8 @@ export default function Landing() {
               "AI-powered natural language setup",
               "Priority support",
             ].map(item => (
-              <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", fontSize: "0.875rem", color: "#666" }}>
-                <Check size={14} color="#333" style={{ marginTop: 2, flexShrink: 0 }} />
+              <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", fontSize: "0.875rem", color: "#888" }}>
+                <Check size={14} color="#a78bfa" style={{ marginTop: 2, flexShrink: 0 }} />
                 {item}
               </div>
             ))}
