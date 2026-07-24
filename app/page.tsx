@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, Zap, Check } from "lucide-react";
+import { ArrowRight, Check, Zap, ChevronRight, Menu, X } from "lucide-react";
 
-// ─── Brand SVG icons ──────────────────────────────────────────────────────────
+// ─── Brand icons ──────────────────────────────────────────────────────────────
 const GmailIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
     <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" fill="#EA4335"/>
@@ -39,20 +39,41 @@ const ZoomIcon = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
+const RunitLogo = ({ size = 26 }: { size?: number }) => (
+  <svg width={size} height={Math.round(size * 0.93)} viewBox="0 0 28 26" fill="none">
+    <polygon points="14,1 27,25 1,25" fill="white" />
+    <clipPath id="lc">
+      <polygon points="14,1 27,25 1,25" />
+    </clipPath>
+    <g clipPath="url(#lc)" stroke="#08080a" strokeWidth="1.3">
+      <line x1="-2" y1="8"  x2="8"  y2="28" />
+      <line x1="2"  y1="4"  x2="14" y2="28" />
+      <line x1="7"  y1="2"  x2="20" y2="28" />
+      <line x1="13" y1="1"  x2="27" y2="20" />
+      <line x1="19" y1="1"  x2="27" y2="13" />
+      <line x1="30" y1="8"  x2="20" y2="28" />
+      <line x1="26" y1="4"  x2="14" y2="28" />
+      <line x1="21" y1="2"  x2="8"  y2="28" />
+      <line x1="15" y1="1"  x2="1"  y2="20" />
+      <line x1="9"  y1="1"  x2="1"  y2="13" />
+    </g>
+  </svg>
+);
+
 // ─── Demo flows ────────────────────────────────────────────────────────────────
 const FLOWS = [
   {
     channel: "WhatsApp",
     color: "#25D366",
-    icon: <WhatsAppIcon size={15} />,
+    icon: <WhatsAppIcon size={14} />,
     prompt: "Send appointment reminders to my clients every morning at 8am",
-    reply: "Done. WhatsApp reminders will go out to your 24 contacts every day at 8:00 AM. Activated.",
+    reply: "Done. WhatsApp reminders will go out to your 24 contacts every day at 8:00 AM.",
     card: { name: "Morning reminders", schedule: "Daily · 8:00 AM", contacts: 24 },
   },
   {
     channel: "Gmail",
     color: "#EA4335",
-    icon: <GmailIcon size={15} />,
+    icon: <GmailIcon size={14} />,
     prompt: "Email my customers a weekly sales summary every Monday",
     reply: "Set up. A sales summary email goes to your list every Monday at 9:00 AM via Gmail.",
     card: { name: "Weekly sales summary", schedule: "Mondays · 9:00 AM", contacts: 31 },
@@ -60,7 +81,7 @@ const FLOWS = [
   {
     channel: "Telegram",
     color: "#2AABEE",
-    icon: <TelegramIcon size={15} />,
+    icon: <TelegramIcon size={14} />,
     prompt: "Blast my Telegram group before every event — 2 hours ahead",
     reply: "Ready. Your Telegram group gets a reminder 2 hours before each event automatically.",
     card: { name: "Event blast", schedule: "2h before event", contacts: 87 },
@@ -68,7 +89,7 @@ const FLOWS = [
   {
     channel: "SMS",
     color: "#8B8B8B",
-    icon: <SMSIcon size={15} />,
+    icon: <SMSIcon size={14} />,
     prompt: "Send payment confirmation SMS when a client pays",
     reply: "On it. Every payment triggers an instant SMS confirmation to the client.",
     card: { name: "Payment confirmation", schedule: "On trigger", contacts: "all" },
@@ -86,7 +107,6 @@ function Demo() {
     setActive(idx);
     setPhase("thinking");
     setTyped("");
-
     timerRef.current = setTimeout(() => {
       setPhase("typing");
       const reply = FLOWS[idx].reply;
@@ -96,50 +116,63 @@ function Demo() {
         setTyped(reply.slice(0, i));
         if (i >= reply.length) {
           clearInterval(interval);
-          timerRef.current = setTimeout(() => setPhase("done"), 300);
+          timerRef.current = setTimeout(() => setPhase("done"), 400);
         }
-      }, 16);
-    }, 750);
+      }, 14);
+    }, 700);
   }
 
-  useEffect(() => { run(0); return () => { if (timerRef.current) clearTimeout(timerRef.current); }; }, []);
+  useEffect(() => {
+    run(0);
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, []);
 
   const flow = FLOWS[active];
 
   return (
     <div style={{
-      background: "linear-gradient(180deg, #141414 0%, #0f0f0f 100%)",
-      border: "1px solid #1f1f1f",
-      borderRadius: 20,
+      background: "#0d0d10",
+      border: "1px solid #1e1e24",
+      borderRadius: 16,
       overflow: "hidden",
-      maxWidth: 580,
+      maxWidth: 600,
       margin: "0 auto",
-      boxShadow: "0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03) inset",
+      boxShadow: "0 0 0 1px rgba(255,255,255,0.02) inset, 0 32px 64px rgba(0,0,0,0.5)",
     }}>
       {/* Window chrome */}
-      <div style={{ padding: "0.875rem 1.1rem", borderBottom: "1px solid #1a1a1a", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-        <div style={{ display: "flex", gap: 6 }}>
+      <div style={{
+        padding: "0.75rem 1rem",
+        borderBottom: "1px solid #1a1a20",
+        display: "flex", alignItems: "center", gap: "0.5rem",
+        background: "#0a0a0d",
+      }}>
+        <div style={{ display: "flex", gap: 5 }}>
           {["#ff5f57","#febc2e","#28c840"].map(c => (
-            <div key={c} style={{ width: 10, height: 10, borderRadius: "50%", background: c, opacity: 0.7 }} />
+            <div key={c} style={{ width: 9, height: 9, borderRadius: "50%", background: c, opacity: 0.6 }} />
           ))}
         </div>
-        <div style={{ flex: 1, textAlign: "center", fontSize: "0.72rem", color: "#333", letterSpacing: "0.03em" }}>
-          runit.app · dashboard
+        <div style={{ flex: 1, textAlign: "center", fontSize: "0.7rem", color: "#2a2a35", letterSpacing: "0.03em", fontFamily: "monospace" }}>
+          runit.app
         </div>
-        <div style={{ width: 42 }} />
+        <div style={{ width: 36 }} />
       </div>
 
       {/* Channel tabs */}
-      <div style={{ display: "flex", padding: "0.625rem 0.875rem", gap: "0.375rem", borderBottom: "1px solid #161616", overflowX: "auto" }}>
+      <div style={{
+        display: "flex", padding: "0.5rem 0.75rem", gap: "0.25rem",
+        borderBottom: "1px solid #161620", background: "#0a0a0d",
+        overflowX: "auto",
+      }}>
         {FLOWS.map((f, i) => (
           <button key={i} onClick={() => run(i)} style={{
-            display: "flex", alignItems: "center", gap: "0.4rem",
-            padding: "0.3rem 0.7rem", borderRadius: 7,
-            border: `1px solid ${active === i ? f.color + "40" : "transparent"}`,
-            background: active === i ? f.color + "12" : "transparent",
-            color: active === i ? f.color : "#3a3a3a",
-            fontSize: "0.75rem", fontWeight: 500,
+            display: "flex", alignItems: "center", gap: "0.35rem",
+            padding: "0.28rem 0.65rem", borderRadius: 6,
+            border: `1px solid ${active === i ? f.color + "35" : "transparent"}`,
+            background: active === i ? f.color + "10" : "transparent",
+            color: active === i ? f.color : "#2e2e3a",
+            fontSize: "0.72rem", fontWeight: 500,
             cursor: "pointer", transition: "all 0.15s", whiteSpace: "nowrap",
+            fontFamily: "inherit",
           }}>
             {f.icon} {f.channel}
           </button>
@@ -147,30 +180,33 @@ function Demo() {
       </div>
 
       {/* Chat area */}
-      <div style={{ padding: "1.1rem", minHeight: 220, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-        {/* User bubble */}
+      <div style={{ padding: "1rem", minHeight: 200, display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+        {/* User message */}
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <div style={{
-            background: "#1c1c1c", border: "1px solid #252525",
-            color: "#d4d4d4", padding: "0.6rem 0.9rem",
-            borderRadius: "12px 12px 3px 12px",
-            fontSize: "0.835rem", maxWidth: "82%", lineHeight: 1.55
+            background: "#18181e", border: "1px solid #22222e",
+            color: "#c8c8d8", padding: "0.55rem 0.85rem",
+            borderRadius: "10px 10px 2px 10px",
+            fontSize: "0.8rem", maxWidth: "84%", lineHeight: 1.6,
           }}>
             {flow.prompt}
           </div>
         </div>
 
-        {/* Thinking */}
+        {/* Thinking indicator */}
         {phase === "thinking" && (
-          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-            <div style={{ width: 24, height: 24, background: "#161616", border: "1px solid #222", borderRadius: 7, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-              <Zap size={11} color="#555" />
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <div style={{
+              width: 22, height: 22, background: "#111116", border: "1px solid #1e1e28",
+              borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+            }}>
+              <Zap size={10} color="#444" />
             </div>
-            <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+            <div style={{ display: "flex", gap: 3, alignItems: "center" }}>
               {[0, 1, 2].map(i => (
                 <div key={i} style={{
-                  width: 5, height: 5, borderRadius: "50%", background: "#2a2a2a",
-                  animation: `pulse 1.2s ease-in-out ${i * 0.2}s infinite`
+                  width: 4, height: 4, borderRadius: "50%", background: "#252530",
+                  animation: `pulse-dot 1.2s ease-in-out ${i * 0.2}s infinite`,
                 }} />
               ))}
             </div>
@@ -179,17 +215,21 @@ function Demo() {
 
         {/* AI reply */}
         {(phase === "typing" || phase === "done") && (
-          <div style={{ display: "flex", gap: "0.6rem", alignItems: "flex-start" }}>
-            <div style={{ width: 24, height: 24, background: "#161616", border: "1px solid #222", borderRadius: 7, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
-              <Zap size={11} color="#888" />
+          <div style={{ display: "flex", gap: "0.5rem", alignItems: "flex-start" }}>
+            <div style={{
+              width: 22, height: 22, background: "#111116", border: "1px solid #1e1e28",
+              borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center",
+              flexShrink: 0, marginTop: 2,
+            }}>
+              <Zap size={10} color="#7c5af6" />
             </div>
             <div style={{
-              background: "#141414", border: "1px solid #1e1e1e",
-              color: "#aaa", padding: "0.6rem 0.9rem",
-              borderRadius: "12px 12px 12px 3px",
-              fontSize: "0.835rem", maxWidth: "82%", lineHeight: 1.55
+              background: "#111116", border: "1px solid #1a1a22",
+              color: "#888898", padding: "0.55rem 0.85rem",
+              borderRadius: "10px 10px 10px 2px",
+              fontSize: "0.8rem", maxWidth: "84%", lineHeight: 1.6,
             }}>
-              {typed}{phase === "typing" && <span style={{ opacity: 0.4 }}>▌</span>}
+              {typed}{phase === "typing" && <span style={{ opacity: 0.35, fontSize: "0.7rem" }}>▌</span>}
             </div>
           </div>
         )}
@@ -197,307 +237,694 @@ function Demo() {
         {/* Live card */}
         {phase === "done" && (
           <div style={{
-            marginTop: 4,
-            background: "#0d0d0d",
-            border: `1px solid ${flow.color}25`,
-            borderRadius: 11,
-            padding: "0.8rem 1rem",
-            display: "flex", alignItems: "center", gap: "0.875rem"
+            marginTop: 2,
+            background: "#0d0d12",
+            border: `1px solid ${flow.color}20`,
+            borderRadius: 10,
+            padding: "0.7rem 0.9rem",
+            display: "flex", alignItems: "center", gap: "0.75rem",
           }}>
-            <div style={{ width: 34, height: 34, background: flow.color + "15", borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-              {React.cloneElement(flow.icon as React.ReactElement, { size: 17 } as any)}
+            <div style={{
+              width: 32, height: 32, background: flow.color + "12",
+              borderRadius: 8, display: "flex", alignItems: "center",
+              justifyContent: "center", flexShrink: 0,
+            }}>
+              {React.cloneElement(flow.icon as React.ReactElement, { size: 16 } as Record<string, unknown>)}
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "#e0e0e0", marginBottom: 2 }}>{flow.card.name}</div>
-              <div style={{ fontSize: "0.73rem", color: "#444" }}>{flow.card.schedule} · {flow.card.contacts} contacts</div>
+              <div style={{ fontSize: "0.78rem", fontWeight: 600, color: "#d8d8e8", marginBottom: 2 }}>{flow.card.name}</div>
+              <div style={{ fontSize: "0.7rem", color: "#35353f" }}>{flow.card.schedule} · {flow.card.contacts} contacts</div>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
-              <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 6px #22c55e" }} />
-              <span style={{ fontSize: "0.7rem", color: "#22c55e", fontWeight: 600 }}>Live</span>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.28rem" }}>
+              <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 5px #22c55e" }} />
+              <span style={{ fontSize: "0.67rem", color: "#22c55e", fontWeight: 600, letterSpacing: "0.02em" }}>Live</span>
             </div>
           </div>
         )}
       </div>
-
-      <style>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 0.3; transform: scale(0.85); }
-          50% { opacity: 1; transform: scale(1); }
-        }
-      `}</style>
     </div>
   );
 }
 
-// ─── Landing page ─────────────────────────────────────────────────────────────
-export default function Landing() {
+// ─── Nav ──────────────────────────────────────────────────────────────────────
+function Nav() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handler);
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
   return (
-    <div style={{ background: "#0a0a0a", color: "#e0e0e0", minHeight: "100vh", fontFamily: "'DM Sans', system-ui, sans-serif" }}>
-      {/* Nav */}
+    <>
       <nav style={{
-        position: "sticky", top: 0, zIndex: 100,
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "0 1.25rem", height: 60,
-        background: "rgba(10,10,10,0.92)", backdropFilter: "blur(16px)",
-        borderBottom: "1px solid #161616",
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 200,
+        height: 56,
+        borderBottom: `1px solid ${scrolled ? "#1a1a22" : "transparent"}`,
+        background: scrolled ? "rgba(8,8,10,0.92)" : "transparent",
+        backdropFilter: scrolled ? "blur(20px)" : "none",
+        transition: "all 0.2s ease",
+        display: "flex", alignItems: "center",
+        padding: "0 max(1.5rem, calc((100vw - 1100px) / 2))",
       }}>
         {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <svg width="28" height="26" viewBox="0 0 28 26" fill="none">
-            <polygon points="14,1 27,25 1,25" fill="white" />
-            <clipPath id="tri-clip">
-              <polygon points="14,1 27,25 1,25" />
-            </clipPath>
-            <g clipPath="url(#tri-clip)" stroke="#0a0a0a" strokeWidth="1.4">
-              {/* Left to right diagonals */}
-              <line x1="-2" y1="8"  x2="8"  y2="28" />
-              <line x1="2"  y1="4"  x2="14" y2="28" />
-              <line x1="7"  y1="2"  x2="20" y2="28" />
-              <line x1="13" y1="1"  x2="27" y2="20" />
-              <line x1="19" y1="1"  x2="27" y2="13" />
-              {/* Right to left diagonals */}
-              <line x1="30" y1="8"  x2="20" y2="28" />
-              <line x1="26" y1="4"  x2="14" y2="28" />
-              <line x1="21" y1="2"  x2="8"  y2="28" />
-              <line x1="15" y1="1"  x2="1"  y2="20" />
-              <line x1="9"  y1="1"  x2="1"  y2="13" />
-            </g>
-          </svg>
-          <span style={{ fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.03em", color: "#fff" }}>Runit</span>
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.5rem", textDecoration: "none", marginRight: "2.5rem" }}>
+          <RunitLogo size={24} />
+          <span style={{ fontWeight: 700, fontSize: "0.95rem", letterSpacing: "-0.03em", color: "#f2f2f5" }}>Runit</span>
+        </Link>
+
+        {/* Desktop links */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.125rem", flex: 1 }} className="nav-links">
+          {["Product", "Pricing", "Changelog"].map(l => (
+            <a key={l} href={l === "Pricing" ? "#pricing" : "#"} style={{
+              color: "#55555e", textDecoration: "none",
+              fontSize: "0.83rem", fontWeight: 500,
+              padding: "0.4rem 0.75rem", borderRadius: 6,
+              transition: "color 0.15s",
+            }}
+              onMouseEnter={e => (e.currentTarget.style.color = "#c8c8d8")}
+              onMouseLeave={e => (e.currentTarget.style.color = "#55555e")}
+            >{l}</a>
+          ))}
         </div>
 
-        {/* Desktop right side */}
-        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }} className="desktop-nav">
+        {/* Desktop CTAs */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }} className="nav-ctas">
           <Link href="/login" style={{
-            color: "#888", textDecoration: "none",
-            fontSize: "0.875rem", fontWeight: 500,
-            padding: "0.45rem 1rem", borderRadius: 999,
-          }}>Log in</Link>
+            color: "#55555e", textDecoration: "none",
+            fontSize: "0.83rem", fontWeight: 500,
+            padding: "0.4rem 0.875rem", borderRadius: 6,
+            transition: "color 0.15s",
+          }}
+            onMouseEnter={e => (e.currentTarget.style.color = "#c8c8d8")}
+            onMouseLeave={e => (e.currentTarget.style.color = "#55555e")}
+          >Log in</Link>
           <Link href="/signup" style={{
-            background: "#fff", color: "#0a0a0a",
-            textDecoration: "none", fontSize: "0.875rem",
-            fontWeight: 600, padding: "0.45rem 1.1rem",
-            borderRadius: 999, letterSpacing: "-0.01em",
+            background: "#f0f0f5", color: "#08080a",
+            textDecoration: "none", fontSize: "0.83rem",
+            fontWeight: 600, padding: "0.4rem 1rem",
+            borderRadius: 6, letterSpacing: "-0.01em",
+            transition: "background 0.15s",
           }}>Sign up</Link>
         </div>
 
-        {/* Mobile hamburger — two lines like Linear */}
-        <button className="mobile-menu-btn" style={{
-          background: "none", border: "none", cursor: "pointer",
-          display: "flex", flexDirection: "column", gap: "5px",
-          padding: "0.5rem",
-        }}>
-          <span style={{ display: "block", width: 22, height: 1.5, background: "#888", borderRadius: 2 }} />
-          <span style={{ display: "block", width: 22, height: 1.5, background: "#888", borderRadius: 2 }} />
+        {/* Mobile hamburger */}
+        <button
+          className="nav-mobile-btn"
+          onClick={() => setMobileOpen(v => !v)}
+          style={{ background: "none", border: "none", cursor: "pointer", color: "#888898", padding: "0.5rem" }}
+        >
+          {mobileOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
       </nav>
 
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div style={{
+          position: "fixed", top: 56, left: 0, right: 0, bottom: 0,
+          background: "#08080a", zIndex: 199, padding: "1.5rem",
+          display: "flex", flexDirection: "column", gap: "0.25rem",
+        }} className="mobile-menu">
+          {["Product", "Pricing", "Changelog"].map(l => (
+            <a key={l} href="#" onClick={() => setMobileOpen(false)} style={{
+              color: "#888898", textDecoration: "none",
+              fontSize: "1rem", fontWeight: 500, padding: "0.75rem 0",
+              borderBottom: "1px solid #1a1a20",
+            }}>{l}</a>
+          ))}
+          <div style={{ marginTop: "1.5rem", display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+            <Link href="/login" onClick={() => setMobileOpen(false)} style={{
+              color: "#888898", textDecoration: "none",
+              fontSize: "0.9rem", fontWeight: 500, padding: "0.7rem 1rem",
+              border: "1px solid #1e1e24", borderRadius: 8, textAlign: "center",
+            }}>Log in</Link>
+            <Link href="/signup" onClick={() => setMobileOpen(false)} style={{
+              background: "#f0f0f5", color: "#08080a",
+              textDecoration: "none", fontSize: "0.9rem",
+              fontWeight: 600, padding: "0.7rem 1rem",
+              borderRadius: 8, textAlign: "center",
+            }}>Sign up free</Link>
+          </div>
+        </div>
+      )}
+
       <style>{`
-        .desktop-nav { display: none; }
-        .mobile-menu-btn { display: flex; }
-        @media (min-width: 640px) {
-          .desktop-nav { display: flex; }
-          .mobile-menu-btn { display: none; }
+        .nav-links { display: none; }
+        .nav-ctas { display: none; }
+        .nav-mobile-btn { display: flex; }
+        .mobile-menu { display: flex; }
+        @media (min-width: 720px) {
+          .nav-links { display: flex; }
+          .nav-ctas { display: flex; }
+          .nav-mobile-btn { display: none; }
+          .mobile-menu { display: none !important; }
         }
       `}</style>
+    </>
+  );
+}
 
-      {/* Hero */}
-      <section style={{ padding: "7rem 1.5rem 4rem", textAlign: "center", maxWidth: 680, margin: "0 auto", position: "relative" }}>
-        {/* Glow */}
-        <div style={{ position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)", width: 600, height: 300, background: "radial-gradient(ellipse, rgba(124,58,237,0.12) 0%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
-        <div style={{ position: "relative", zIndex: 1 }}>
-        {/* Badge */}
-        <div style={{
-          display: "inline-flex", alignItems: "center", gap: "0.5rem",
-          background: "#111", border: "1px solid #2a1f3d",
-          padding: "0.3rem 0.75rem", borderRadius: 999,
-          fontSize: "0.73rem", color: "#666", marginBottom: "2.25rem",
-          letterSpacing: "0.02em"
-        }}>
-          <div style={{ width: 5, height: 5, background: "#22c55e", borderRadius: "50%", boxShadow: "0 0 6px #22c55e55" }} />
-          Built for African SMEs · WhatsApp, Gmail, Telegram & more
-        </div>
+// ─── Main ─────────────────────────────────────────────────────────────────────
+const W = "max(1.5rem, calc((100vw - 1100px) / 2))";
 
-        <h1 style={{
-          fontSize: "clamp(2.5rem, 6vw, 4.25rem)", fontWeight: 700,
-          lineHeight: 1.08, letterSpacing: "-0.04em",
-          color: "#e8e8e8", marginBottom: "1.4rem"
-        }}>
-          Automate your business.<br />
-          <span style={{
-            background: "linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)",
-            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"
+export default function Landing() {
+  return (
+    <div style={{ background: "#08080a", color: "#f2f2f5", minHeight: "100vh", fontFamily: "'Inter', system-ui, sans-serif" }}>
+      <Nav />
+
+      {/* ── Hero ──────────────────────────────────────────────────────────── */}
+      <section style={{
+        padding: `9rem ${W} 6rem`,
+        position: "relative", overflow: "hidden",
+      }}>
+        {/* Ambient glows */}
+        <div aria-hidden style={{
+          position: "absolute", top: -120, left: "50%", transform: "translateX(-50%)",
+          width: 800, height: 500,
+          background: "radial-gradient(ellipse at center, rgba(124,90,246,0.1) 0%, transparent 68%)",
+          pointerEvents: "none",
+          animation: "glow-pulse 4s ease-in-out infinite",
+        }} />
+        <div aria-hidden style={{
+          position: "absolute", top: 80, left: "15%",
+          width: 300, height: 300,
+          background: "radial-gradient(ellipse, rgba(37,211,102,0.04) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }} />
+
+        <div style={{ maxWidth: 780, position: "relative" }}>
+          {/* Eyebrow badge */}
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: "0.5rem",
+            background: "rgba(124,90,246,0.08)",
+            border: "1px solid rgba(124,90,246,0.2)",
+            padding: "0.3rem 0.875rem", borderRadius: 999,
+            fontSize: "0.72rem", fontWeight: 500,
+            color: "#9d80fc",
+            marginBottom: "2rem",
+            letterSpacing: "0.01em",
           }}>
-            Just describe it.
-          </span>
-        </h1>
+            <div style={{ width: 5, height: 5, background: "#22c55e", borderRadius: "50%", boxShadow: "0 0 5px #22c55e" }} />
+            Built for African SMEs
+            <span style={{ color: "#4a4a5a", margin: "0 0.25rem" }}>·</span>
+            WhatsApp, Gmail, Telegram & more
+          </div>
 
-        <p style={{
-          fontSize: "1.05rem", color: "#555", lineHeight: 1.75,
-          maxWidth: 460, margin: "0 auto 2.75rem", letterSpacing: "-0.01em"
-        }}>
-          No forms. No workflows to configure. Tell Runit what you need
-          in plain English and it handles the rest — reminders, reports, confirmations.
-        </p>
-
-        <div style={{ display: "flex", gap: "0.625rem", justifyContent: "center", flexWrap: "wrap", marginBottom: "5rem" }}>
-          <Link href="/signup" style={{
-            display: "inline-flex", alignItems: "center", gap: "0.4rem",
-            background: "#e0e0e0", color: "#0a0a0a",
-            padding: "0.75rem 1.5rem", borderRadius: 9,
-            textDecoration: "none", fontWeight: 600,
-            fontSize: "0.9rem", letterSpacing: "-0.01em",
-            boxShadow: "0 1px 2px rgba(0,0,0,0.4)"
+          {/* Headline */}
+          <h1 style={{
+            fontSize: "clamp(2.75rem, 6vw, 5rem)",
+            fontWeight: 800,
+            lineHeight: 1.04,
+            letterSpacing: "-0.045em",
+            color: "#ebebf0",
+            marginBottom: "1.5rem",
           }}>
-            Start free <ArrowRight size={14} />
-          </Link>
-          <Link href="#demo" style={{
-            display: "inline-flex", alignItems: "center",
-            background: "transparent", color: "#444",
-            padding: "0.75rem 1.5rem", borderRadius: 9,
-            textDecoration: "none", fontWeight: 500,
-            fontSize: "0.9rem", border: "1px solid #1e1e1e"
+            Automate your business.<br />
+            <span style={{
+              background: "linear-gradient(135deg, #a78bfa 0%, #7c5af6 50%, #9d80fc 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}>
+              Just describe it.
+            </span>
+          </h1>
+
+          {/* Subline */}
+          <p style={{
+            fontSize: "1.05rem", color: "#4e4e5e", lineHeight: 1.8,
+            maxWidth: 520, marginBottom: "2.5rem", letterSpacing: "-0.01em",
           }}>
-            See how it works
-          </Link>
-        </div>
-
-        {/* Channel logos row */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1.5rem", marginBottom: "4rem", opacity: 0.75 }}>
-          <GmailIcon size={22} />
-          <WhatsAppIcon size={22} />
-          <TelegramIcon size={22} />
-          <SMSIcon size={22} />
-          <ZoomIcon size={22} />
-        </div>
-
-        {/* Demo */}
-        <div id="demo">
-          <p style={{ fontSize: "0.7rem", color: "#444", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "1.25rem" }}>
-            Interactive demo — click a channel
+            No forms. No workflows to drag and drop. Tell Runit what you need
+            in plain English — it sets up reminders, reports, and confirmations
+            across every channel your customers use.
           </p>
+
+          {/* CTAs */}
+          <div style={{ display: "flex", gap: "0.625rem", alignItems: "center", flexWrap: "wrap", marginBottom: "3.5rem" }}>
+            <Link href="/signup" style={{
+              display: "inline-flex", alignItems: "center", gap: "0.5rem",
+              background: "#f0f0f5", color: "#08080a",
+              padding: "0.7rem 1.375rem", borderRadius: 8,
+              textDecoration: "none", fontWeight: 600,
+              fontSize: "0.875rem", letterSpacing: "-0.01em",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05) inset",
+              transition: "background 0.15s",
+            }}>
+              Start for free <ArrowRight size={13} />
+            </Link>
+            <a href="#demo" style={{
+              display: "inline-flex", alignItems: "center", gap: "0.4rem",
+              background: "transparent", color: "#55555e",
+              padding: "0.7rem 1.1rem", borderRadius: 8,
+              textDecoration: "none", fontWeight: 500,
+              fontSize: "0.875rem",
+              border: "1px solid #1e1e28",
+              transition: "border-color 0.15s, color 0.15s",
+            }}>
+              See how it works <ChevronRight size={13} />
+            </a>
+          </div>
+
+          {/* Social proof */}
+          <div style={{ display: "flex", alignItems: "center", gap: "1.25rem", flexWrap: "wrap" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.875rem" }}>
+              {[GmailIcon, WhatsAppIcon, TelegramIcon, SMSIcon, ZoomIcon].map((Icon, i) => (
+                <div key={i} style={{ opacity: 0.5 }}>
+                  <Icon size={18} />
+                </div>
+              ))}
+            </div>
+            <div style={{ width: 1, height: 18, background: "#1e1e28" }} />
+            <p style={{ fontSize: "0.78rem", color: "#35353f" }}>
+              5 channels · 1,000+ automations running
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Demo ──────────────────────────────────────────────────────────── */}
+      <section id="demo" style={{ padding: `4rem ${W}` }}>
+        <div style={{ maxWidth: 680, margin: "0 auto" }}>
+          <div style={{ marginBottom: "2rem" }}>
+            <p style={{ fontSize: "0.68rem", color: "#7c5af6", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.6rem" }}>
+              Live demo
+            </p>
+            <p style={{ fontSize: "0.8rem", color: "#33333d" }}>Click a channel to see Runit in action</p>
+          </div>
           <Demo />
         </div>
-        </div>
-      </section>
-      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, #1e1e1e 30%, #1e1e1e 70%, transparent)", margin: "3rem 0" }} />
-
-      {/* How it works */}
-      <section style={{ padding: "4rem 1.5rem", maxWidth: 840, margin: "0 auto" }}>
-        <p style={{ fontSize: "0.7rem", color: "#a78bfa", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.875rem" }}>Process</p>
-        <h2 style={{ fontSize: "clamp(1.6rem, 4vw, 2.25rem)", fontWeight: 700, letterSpacing: "-0.03em", color: "#e0e0e0", marginBottom: "3rem" }}>
-          Three steps. That's it.
-        </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))", gap: "1px", background: "#161616", borderRadius: 16, overflow: "hidden", border: "1px solid #161616" }}>
-          {[
-            { n: "01", title: "Describe it", body: "Type what you want in plain English. No settings. No forms." },
-            { n: "02", title: "Confirm it", body: "Runit shows you exactly what it understood. One tap to approve." },
-            { n: "03", title: "It runs", body: "Your automation goes live. Messages sent, on time, every time." },
-          ].map(s => (
-            <div key={s.n} style={{ background: "#0a0a0a", padding: "2rem 1.75rem" }}>
-              <div style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.68rem", color: "#a78bfa", marginBottom: "1.25rem", letterSpacing: "0.05em" }}>{s.n}</div>
-              <h3 style={{ fontSize: "1.05rem", fontWeight: 600, color: "#c8c8c8", marginBottom: "0.6rem", letterSpacing: "-0.02em" }}>{s.title}</h3>
-              <p style={{ color: "#444", fontSize: "0.875rem", lineHeight: 1.65 }}>{s.body}</p>
-            </div>
-          ))}
-        </div>
       </section>
 
-      {/* Channels */}
-      <section style={{ padding: "4rem 1.5rem", maxWidth: 840, margin: "0 auto" }}>
-        <p style={{ fontSize: "0.7rem", color: "#a78bfa", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.875rem" }}>Channels</p>
-        <h2 style={{ fontSize: "clamp(1.6rem, 4vw, 2.25rem)", fontWeight: 700, letterSpacing: "-0.03em", color: "#e0e0e0", marginBottom: "2.5rem" }}>
-          Every channel your customers use.
-        </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: "0.75rem" }}>
-          {[
-            { icon: <WhatsAppIcon size={20} />, color: "#25D366", name: "WhatsApp", desc: "Direct to phone. No app needed on your end." },
-            { icon: <GmailIcon size={20} />, color: "#EA4335", name: "Gmail", desc: "Send from your real Gmail. Lands in inbox, not spam." },
-            { icon: <TelegramIcon size={20} />, color: "#2AABEE", name: "Telegram", desc: "Free per message. Great for groups and broadcasts." },
-            { icon: <SMSIcon size={20} />, color: "#8B8B8B", name: "SMS", desc: "Works on any phone. No internet required." },
-            { icon: <ZoomIcon size={20} />, color: "#2D8CFF", name: "Zoom", desc: "Generate links and send invites automatically." },
-          ].map(ch => (
-            <div key={ch.name} style={{
-              background: "#0f0f0f", border: "1px solid #181818", borderRadius: 13,
-              padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.875rem",
-              transition: "border-color 0.15s"
-            }}>
-              <div style={{ width: 40, height: 40, background: ch.color + "12", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                {ch.icon}
-              </div>
-              <div>
-                <div style={{ fontWeight: 600, fontSize: "0.875rem", color: "#d0d0d0", marginBottom: "0.3rem", letterSpacing: "-0.01em" }}>{ch.name}</div>
-                <div style={{ fontSize: "0.8rem", color: "#404040", lineHeight: 1.6 }}>{ch.desc}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* ── Divider ───────────────────────────────────────────────────────── */}
+      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, #1a1a22 30%, #1a1a22 70%, transparent)", margin: `0 ${W}` }} />
 
-      {/* Pricing */}
-      <section style={{ padding: "4rem 1.5rem 6rem", maxWidth: 440, margin: "0 auto", textAlign: "center" }}>
-        <p style={{ fontSize: "0.7rem", color: "#a78bfa", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.875rem" }}>Pricing</p>
-        <h2 style={{ fontSize: "clamp(1.6rem, 4vw, 2.25rem)", fontWeight: 700, letterSpacing: "-0.03em", color: "#e0e0e0", marginBottom: "2.5rem" }}>
-          One plan. Everything in.
-        </h2>
-        <div style={{
-          background: "#0f0f0f", border: "1px solid #1e1e1e", borderRadius: 18, padding: "2.25rem",
-          boxShadow: "0 0 0 1px rgba(255,255,255,0.02) inset"
-        }}>
-          <div style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.65rem", color: "#a78bfa", letterSpacing: "0.12em", marginBottom: "0.875rem" }}>PRO</div>
-          <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: "0.25rem", marginBottom: "0.4rem" }}>
-            <span style={{ fontSize: "3rem", fontWeight: 700, color: "#e0e0e0", letterSpacing: "-0.04em" }}>₦5,000</span>
-            <span style={{ color: "#555", fontSize: "0.875rem" }}>/month</span>
+      {/* ── Features bento ────────────────────────────────────────────────── */}
+      <section style={{ padding: `5rem ${W}` }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div style={{ marginBottom: "3.5rem" }}>
+            <p style={{ fontSize: "0.68rem", color: "#7c5af6", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.75rem" }}>
+              Features
+            </p>
+            <h2 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 700, letterSpacing: "-0.04em", color: "#e8e8f0", maxWidth: 560 }}>
+              Everything a business needs to stay in touch.
+            </h2>
           </div>
-          <p style={{ color: "#555", fontSize: "0.82rem", marginBottom: "2rem" }}>Pay in Naira via Paystack. Cancel anytime.</p>
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem", marginBottom: "2rem", textAlign: "left" }}>
+
+          {/* Bento grid */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "1px", background: "#14141a" }} className="bento-grid">
+            {/* Card 1 — large */}
+            <div className="bento-xl" style={{
+              gridColumn: "1 / 7",
+              background: "#0d0d11", padding: "2.25rem",
+              borderRadius: "0 0 0 0",
+            }}>
+              <div style={{
+                width: 38, height: 38, background: "rgba(124,90,246,0.1)",
+                border: "1px solid rgba(124,90,246,0.2)",
+                borderRadius: 10, display: "flex", alignItems: "center",
+                justifyContent: "center", marginBottom: "1.5rem",
+              }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9d80fc" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+              </div>
+              <h3 style={{ fontSize: "1.05rem", fontWeight: 600, color: "#d8d8e8", letterSpacing: "-0.025em", marginBottom: "0.625rem" }}>
+                Plain English commands
+              </h3>
+              <p style={{ fontSize: "0.85rem", color: "#3c3c4a", lineHeight: 1.7, maxWidth: 340 }}>
+                Describe what you want in everyday language. Runit understands context, schedule, and recipients — no training required.
+              </p>
+            </div>
+
+            {/* Card 2 */}
+            <div className="bento-sm" style={{
+              gridColumn: "7 / 13",
+              background: "#0d0d11", padding: "2.25rem",
+            }}>
+              <div style={{
+                width: 38, height: 38, background: "rgba(34,197,94,0.08)",
+                border: "1px solid rgba(34,197,94,0.15)",
+                borderRadius: 10, display: "flex", alignItems: "center",
+                justifyContent: "center", marginBottom: "1.5rem",
+              }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+                </svg>
+              </div>
+              <h3 style={{ fontSize: "1.05rem", fontWeight: 600, color: "#d8d8e8", letterSpacing: "-0.025em", marginBottom: "0.625rem" }}>
+                Scheduled & triggered
+              </h3>
+              <p style={{ fontSize: "0.85rem", color: "#3c3c4a", lineHeight: 1.7 }}>
+                Run automations on a schedule or trigger them on events like payments, sign-ups, or custom webhooks.
+              </p>
+            </div>
+
+            {/* Card 3 */}
+            <div className="bento-sm" style={{
+              gridColumn: "1 / 5",
+              background: "#0d0d11", padding: "2.25rem",
+            }}>
+              <div style={{
+                width: 38, height: 38, background: "rgba(45,140,255,0.08)",
+                border: "1px solid rgba(45,140,255,0.15)",
+                borderRadius: 10, display: "flex", alignItems: "center",
+                justifyContent: "center", marginBottom: "1.5rem",
+              }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2D8CFF" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8m-4-4v4" />
+                </svg>
+              </div>
+              <h3 style={{ fontSize: "1.05rem", fontWeight: 600, color: "#d8d8e8", letterSpacing: "-0.025em", marginBottom: "0.625rem" }}>
+                One-tap confirmation
+              </h3>
+              <p style={{ fontSize: "0.85rem", color: "#3c3c4a", lineHeight: 1.7 }}>
+                Before anything goes live, Runit shows you exactly what it understood and what it will do.
+              </p>
+            </div>
+
+            {/* Card 4 */}
+            <div className="bento-sm" style={{
+              gridColumn: "5 / 9",
+              background: "#0d0d11", padding: "2.25rem",
+            }}>
+              <div style={{
+                width: 38, height: 38, background: "rgba(251,188,5,0.08)",
+                border: "1px solid rgba(251,188,5,0.15)",
+                borderRadius: 10, display: "flex", alignItems: "center",
+                justifyContent: "center", marginBottom: "1.5rem",
+              }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FBBC05" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <h3 style={{ fontSize: "1.05rem", fontWeight: 600, color: "#d8d8e8", letterSpacing: "-0.025em", marginBottom: "0.625rem" }}>
+                Contact management
+              </h3>
+              <p style={{ fontSize: "0.85rem", color: "#3c3c4a", lineHeight: 1.7 }}>
+                Import and segment your customers across all channels from one place.
+              </p>
+            </div>
+
+            {/* Card 5 */}
+            <div className="bento-sm" style={{
+              gridColumn: "9 / 13",
+              background: "#0d0d11", padding: "2.25rem",
+            }}>
+              <div style={{
+                width: 38, height: 38, background: "rgba(234,67,53,0.08)",
+                border: "1px solid rgba(234,67,53,0.15)",
+                borderRadius: 10, display: "flex", alignItems: "center",
+                justifyContent: "center", marginBottom: "1.5rem",
+              }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EA4335" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
+              </div>
+              <h3 style={{ fontSize: "1.05rem", fontWeight: 600, color: "#d8d8e8", letterSpacing: "-0.025em", marginBottom: "0.625rem" }}>
+                Delivery analytics
+              </h3>
+              <p style={{ fontSize: "0.85rem", color: "#3c3c4a", lineHeight: 1.7 }}>
+                Track open rates, delivery status, and engagement across every channel.
+              </p>
+            </div>
+          </div>
+
+          <style>{`
+            .bento-grid { border: 1px solid #14141a; border-radius: 16px; overflow: hidden; }
+            .bento-xl { grid-column: 1 / 7; }
+            .bento-sm { grid-column: auto; }
+            @media (max-width: 720px) {
+              .bento-xl, .bento-sm { grid-column: 1 / -1 !important; }
+            }
+          `}</style>
+        </div>
+      </section>
+
+      {/* ── Divider ───────────────────────────────────────────────────────── */}
+      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, #1a1a22 30%, #1a1a22 70%, transparent)", margin: `0 ${W}` }} />
+
+      {/* ── How it works ──────────────────────────────────────────────────── */}
+      <section style={{ padding: `5rem ${W}` }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div style={{ marginBottom: "3.5rem" }}>
+            <p style={{ fontSize: "0.68rem", color: "#7c5af6", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.75rem" }}>
+              How it works
+            </p>
+            <h2 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 700, letterSpacing: "-0.04em", color: "#e8e8f0" }}>
+              Three steps. That&apos;s it.
+            </h2>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0", position: "relative" }} className="steps-grid">
             {[
-              "Unlimited automations",
-              "Gmail, WhatsApp, Telegram, SMS, Zoom",
-              "Up to 1,000 contacts",
-              "AI-powered natural language setup",
-              "Priority support",
-            ].map(item => (
-              <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", fontSize: "0.875rem", color: "#888" }}>
-                <Check size={14} color="#a78bfa" style={{ marginTop: 2, flexShrink: 0 }} />
-                {item}
+              {
+                n: "01",
+                title: "Describe it",
+                body: "Type what you want in plain English. No settings, no forms, no flowcharts to build.",
+                color: "#7c5af6",
+              },
+              {
+                n: "02",
+                title: "Confirm it",
+                body: "Runit shows you exactly what it understood. One tap to approve. Nothing runs without your sign-off.",
+                color: "#22c55e",
+              },
+              {
+                n: "03",
+                title: "It runs",
+                body: "Your automation goes live and keeps running. Messages go out on time, every time, across every channel.",
+                color: "#FBBC05",
+              },
+            ].map((s, i) => (
+              <div key={s.n} style={{
+                padding: "2.5rem",
+                borderRight: i < 2 ? "1px solid #1a1a22" : "none",
+                position: "relative",
+              }} className="step-card">
+                <div style={{
+                  width: 28, height: 28, borderRadius: 7,
+                  background: s.color + "15",
+                  border: `1px solid ${s.color}25`,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  marginBottom: "1.75rem",
+                }}>
+                  <span style={{ fontSize: "0.65rem", fontWeight: 700, color: s.color, letterSpacing: "0.04em" }}>{s.n}</span>
+                </div>
+                <h3 style={{ fontSize: "1.05rem", fontWeight: 600, color: "#c8c8d8", letterSpacing: "-0.025em", marginBottom: "0.75rem" }}>{s.title}</h3>
+                <p style={{ color: "#38383f", fontSize: "0.85rem", lineHeight: 1.75 }}>{s.body}</p>
+              </div>
+            ))}
+            <style>{`
+              .steps-grid { border: 1px solid #1a1a22; border-radius: 14px; overflow: hidden; }
+              @media (max-width: 680px) {
+                .steps-grid { grid-template-columns: 1fr !important; }
+                .step-card { border-right: none !important; border-bottom: 1px solid #1a1a22; }
+                .step-card:last-child { border-bottom: none !important; }
+              }
+            `}</style>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Divider ───────────────────────────────────────────────────────── */}
+      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, #1a1a22 30%, #1a1a22 70%, transparent)", margin: `0 ${W}` }} />
+
+      {/* ── Channels ──────────────────────────────────────────────────────── */}
+      <section style={{ padding: `5rem ${W}` }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div style={{ marginBottom: "3rem" }}>
+            <p style={{ fontSize: "0.68rem", color: "#7c5af6", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.75rem" }}>
+              Channels
+            </p>
+            <h2 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 700, letterSpacing: "-0.04em", color: "#e8e8f0" }}>
+              Every channel your customers use.
+            </h2>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "0.75rem" }}>
+            {[
+              { Icon: WhatsAppIcon, color: "#25D366", name: "WhatsApp", desc: "Direct to phone. No app required on your side." },
+              { Icon: GmailIcon, color: "#EA4335", name: "Gmail", desc: "Sent from your real Gmail. Lands in inbox." },
+              { Icon: TelegramIcon, color: "#2AABEE", name: "Telegram", desc: "Free per message. Perfect for group broadcasts." },
+              { Icon: SMSIcon, color: "#8B8B8B", name: "SMS", desc: "Works on any phone. No internet required." },
+              { Icon: ZoomIcon, color: "#2D8CFF", name: "Zoom", desc: "Auto-generate meeting links and send invites." },
+            ].map(({ Icon, color, name, desc }) => (
+              <div key={name} style={{
+                background: "#0d0d11",
+                border: "1px solid #1a1a22",
+                borderRadius: 12,
+                padding: "1.5rem",
+                display: "flex", flexDirection: "column", gap: "1rem",
+                transition: "border-color 0.15s",
+                cursor: "default",
+              }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = color + "30")}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = "#1a1a22")}
+              >
+                <div style={{
+                  width: 38, height: 38,
+                  background: color + "10",
+                  borderRadius: 9,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}>
+                  <Icon size={18} />
+                </div>
+                <div>
+                  <div style={{ fontWeight: 600, fontSize: "0.875rem", color: "#c8c8d8", marginBottom: "0.3rem", letterSpacing: "-0.01em" }}>{name}</div>
+                  <div style={{ fontSize: "0.8rem", color: "#30303a", lineHeight: 1.65 }}>{desc}</div>
+                </div>
               </div>
             ))}
           </div>
-          <Link href="/signup" style={{
-            display: "block", background: "#e0e0e0", color: "#0a0a0a",
-            padding: "0.8rem", borderRadius: 9, textDecoration: "none",
-            fontWeight: 600, fontSize: "0.9rem", letterSpacing: "-0.01em"
+        </div>
+      </section>
+
+      {/* ── Divider ───────────────────────────────────────────────────────── */}
+      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, #1a1a22 30%, #1a1a22 70%, transparent)", margin: `0 ${W}` }} />
+
+      {/* ── Pricing ───────────────────────────────────────────────────────── */}
+      <section id="pricing" style={{ padding: `5rem ${W}` }}>
+        <div style={{ maxWidth: 440, margin: "0 auto" }}>
+          <div style={{ marginBottom: "3rem" }}>
+            <p style={{ fontSize: "0.68rem", color: "#7c5af6", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.75rem" }}>
+              Pricing
+            </p>
+            <h2 style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 700, letterSpacing: "-0.04em", color: "#e8e8f0" }}>
+              One plan. Everything in.
+            </h2>
+          </div>
+
+          <div style={{
+            background: "#0d0d11",
+            border: "1px solid #1e1e28",
+            borderRadius: 16,
+            padding: "2.25rem",
+            position: "relative",
+            overflow: "hidden",
           }}>
-            Start free trial
+            {/* Top accent line */}
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, transparent, rgba(124,90,246,0.4), transparent)" }} />
+
+            <div style={{
+              display: "inline-flex", alignItems: "center", gap: "0.4rem",
+              background: "rgba(124,90,246,0.1)", border: "1px solid rgba(124,90,246,0.2)",
+              padding: "0.2rem 0.625rem", borderRadius: 999,
+              fontSize: "0.65rem", fontWeight: 700, color: "#9d80fc",
+              letterSpacing: "0.08em", textTransform: "uppercase",
+              marginBottom: "1.5rem",
+            }}>
+              PRO
+            </div>
+
+            <div style={{ display: "flex", alignItems: "baseline", gap: "0.25rem", marginBottom: "0.4rem" }}>
+              <span style={{ fontSize: "3rem", fontWeight: 800, color: "#ebebf0", letterSpacing: "-0.05em" }}>₦5,000</span>
+              <span style={{ color: "#35353f", fontSize: "0.875rem" }}>/month</span>
+            </div>
+            <p style={{ color: "#35353f", fontSize: "0.8rem", marginBottom: "2rem" }}>
+              Pay in Naira via Paystack · Cancel anytime
+            </p>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "2rem" }}>
+              {[
+                "Unlimited automations",
+                "Gmail, WhatsApp, Telegram, SMS, Zoom",
+                "Up to 1,000 contacts",
+                "AI-powered natural language setup",
+                "Delivery analytics",
+                "Priority support",
+              ].map(item => (
+                <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: "0.625rem", fontSize: "0.85rem", color: "#6a6a7a" }}>
+                  <div style={{
+                    width: 16, height: 16, borderRadius: 4,
+                    background: "rgba(124,90,246,0.1)",
+                    border: "1px solid rgba(124,90,246,0.2)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    flexShrink: 0, marginTop: 1,
+                  }}>
+                    <Check size={9} color="#9d80fc" />
+                  </div>
+                  {item}
+                </div>
+              ))}
+            </div>
+
+            <Link href="/signup" style={{
+              display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem",
+              background: "#f0f0f5", color: "#08080a",
+              padding: "0.8rem", borderRadius: 8,
+              textDecoration: "none", fontWeight: 600,
+              fontSize: "0.9rem", letterSpacing: "-0.01em",
+              transition: "background 0.15s",
+            }}>
+              Start free trial <ArrowRight size={13} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA banner ────────────────────────────────────────────────────── */}
+      <section style={{ padding: `0 ${W} 5rem` }}>
+        <div style={{
+          maxWidth: 1100, margin: "0 auto",
+          background: "#0d0d11",
+          border: "1px solid #1e1e28",
+          borderRadius: 20,
+          padding: "4rem 3rem",
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          gap: "2rem", flexWrap: "wrap",
+          position: "relative", overflow: "hidden",
+        }}>
+          <div aria-hidden style={{
+            position: "absolute", right: -100, top: "50%", transform: "translateY(-50%)",
+            width: 400, height: 400,
+            background: "radial-gradient(ellipse, rgba(124,90,246,0.06) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }} />
+          <div style={{ position: "relative" }}>
+            <h2 style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 700, letterSpacing: "-0.04em", color: "#e0e0e8", marginBottom: "0.5rem" }}>
+              Ready to stop doing it manually?
+            </h2>
+            <p style={{ color: "#38383f", fontSize: "0.875rem" }}>
+              Set up your first automation in under 2 minutes.
+            </p>
+          </div>
+          <Link href="/signup" style={{
+            display: "inline-flex", alignItems: "center", gap: "0.5rem",
+            background: "#f0f0f5", color: "#08080a",
+            padding: "0.75rem 1.5rem", borderRadius: 8,
+            textDecoration: "none", fontWeight: 600,
+            fontSize: "0.875rem", letterSpacing: "-0.01em",
+            whiteSpace: "nowrap", flexShrink: 0, position: "relative",
+          }}>
+            Get started free <ArrowRight size={13} />
           </Link>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{ borderTop: "1px solid #141414", padding: "1.75rem 2rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-          <svg width="22" height="20" viewBox="0 0 28 26" fill="none">
-            <polygon points="14,1 27,25 1,25" fill="white" />
-            <clipPath id="tri-clip-footer">
-              <polygon points="14,1 27,25 1,25" />
-            </clipPath>
-            <g clipPath="url(#tri-clip-footer)" stroke="#0a0a0a" strokeWidth="1.4">
-              <line x1="-2" y1="8"  x2="8"  y2="28" />
-              <line x1="2"  y1="4"  x2="14" y2="28" />
-              <line x1="7"  y1="2"  x2="20" y2="28" />
-              <line x1="13" y1="1"  x2="27" y2="20" />
-              <line x1="19" y1="1"  x2="27" y2="13" />
-              <line x1="30" y1="8"  x2="20" y2="28" />
-              <line x1="26" y1="4"  x2="14" y2="28" />
-              <line x1="21" y1="2"  x2="8"  y2="28" />
-              <line x1="15" y1="1"  x2="1"  y2="20" />
-              <line x1="9"  y1="1"  x2="1"  y2="13" />
-            </g>
-          </svg>
-          <span style={{ fontWeight: 700, fontSize: "0.85rem", color: "#fff", letterSpacing: "-0.02em" }}>Runit</span>
+      {/* ── Footer ────────────────────────────────────────────────────────── */}
+      <footer style={{
+        borderTop: "1px solid #12121a",
+        padding: `2.5rem ${W}`,
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        flexWrap: "wrap", gap: "1.25rem",
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <RunitLogo size={20} />
+          <span style={{ fontWeight: 700, fontSize: "0.85rem", color: "#f2f2f5", letterSpacing: "-0.025em" }}>Runit</span>
+          <span style={{ color: "#22222e", margin: "0 0.5rem" }}>·</span>
+          <span style={{ fontSize: "0.75rem", color: "#2a2a35" }}>A Black Sheep Co. product</span>
         </div>
-        <p style={{ color: "#252525", fontSize: "0.75rem" }}>A Black Sheep Co. product · Built for Africa</p>
+        <div style={{ display: "flex", gap: "1.5rem" }}>
+          {["Privacy", "Terms", "Contact"].map(l => (
+            <a key={l} href="#" style={{ fontSize: "0.78rem", color: "#28282e", textDecoration: "none", transition: "color 0.15s" }}
+              onMouseEnter={e => (e.currentTarget.style.color = "#888898")}
+              onMouseLeave={e => (e.currentTarget.style.color = "#28282e")}
+            >{l}</a>
+          ))}
+        </div>
       </footer>
     </div>
   );
