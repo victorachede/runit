@@ -237,37 +237,41 @@ export default function Landing() {
       <nav style={{
         position: "sticky", top: 0, zIndex: 100,
         display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "0 1.5rem", height: 60,
+        padding: "0 1.25rem", height: 60,
         background: "rgba(10,10,10,0.92)", backdropFilter: "blur(16px)",
         borderBottom: "1px solid #161616",
       }}>
         {/* Logo */}
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            {/* Equilateral triangle */}
-            <polygon points="14,3 27,25 1,25" fill="white" />
-            {/* Diagonal slash lines across triangle — clipped */}
+          <svg width="28" height="26" viewBox="0 0 28 26" fill="none">
+            <polygon points="14,1 27,25 1,25" fill="white" />
             <clipPath id="tri-clip">
-              <polygon points="14,3 27,25 1,25" />
+              <polygon points="14,1 27,25 1,25" />
             </clipPath>
-            <g clipPath="url(#tri-clip)" stroke="#0a0a0a" strokeWidth="1.6" opacity="0.35">
-              <line x1="1" y1="10" x2="10" y2="28" />
-              <line x1="5" y1="7" x2="16" y2="28" />
-              <line x1="10" y1="5" x2="22" y2="27" />
-              <line x1="15" y1="3" x2="27" y2="22" />
-              <line x1="20" y1="3" x2="27" y2="16" />
+            <g clipPath="url(#tri-clip)" stroke="#0a0a0a" strokeWidth="1.4">
+              {/* Left to right diagonals */}
+              <line x1="-2" y1="8"  x2="8"  y2="28" />
+              <line x1="2"  y1="4"  x2="14" y2="28" />
+              <line x1="7"  y1="2"  x2="20" y2="28" />
+              <line x1="13" y1="1"  x2="27" y2="20" />
+              <line x1="19" y1="1"  x2="27" y2="13" />
+              {/* Right to left diagonals */}
+              <line x1="30" y1="8"  x2="20" y2="28" />
+              <line x1="26" y1="4"  x2="14" y2="28" />
+              <line x1="21" y1="2"  x2="8"  y2="28" />
+              <line x1="15" y1="1"  x2="1"  y2="20" />
+              <line x1="9"  y1="1"  x2="1"  y2="13" />
             </g>
           </svg>
           <span style={{ fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.03em", color: "#fff" }}>Runit</span>
         </div>
 
-        {/* Right side */}
-        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+        {/* Desktop right side */}
+        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }} className="desktop-nav">
           <Link href="/login" style={{
             color: "#888", textDecoration: "none",
             fontSize: "0.875rem", fontWeight: 500,
             padding: "0.45rem 1rem", borderRadius: 999,
-            transition: "color 0.15s",
           }}>Log in</Link>
           <Link href="/signup" style={{
             background: "#fff", color: "#0a0a0a",
@@ -276,7 +280,26 @@ export default function Landing() {
             borderRadius: 999, letterSpacing: "-0.01em",
           }}>Sign up</Link>
         </div>
+
+        {/* Mobile hamburger — two lines like Linear */}
+        <button className="mobile-menu-btn" style={{
+          background: "none", border: "none", cursor: "pointer",
+          display: "flex", flexDirection: "column", gap: "5px",
+          padding: "0.5rem",
+        }}>
+          <span style={{ display: "block", width: 22, height: 1.5, background: "#888", borderRadius: 2 }} />
+          <span style={{ display: "block", width: 22, height: 1.5, background: "#888", borderRadius: 2 }} />
+        </button>
       </nav>
+
+      <style>{`
+        .desktop-nav { display: none; }
+        .mobile-menu-btn { display: flex; }
+        @media (min-width: 640px) {
+          .desktop-nav { display: flex; }
+          .mobile-menu-btn { display: none; }
+        }
+      `}</style>
 
       {/* Hero */}
       <section style={{ padding: "7rem 1.5rem 4rem", textAlign: "center", maxWidth: 680, margin: "0 auto", position: "relative" }}>
@@ -454,17 +477,22 @@ export default function Landing() {
       {/* Footer */}
       <footer style={{ borderTop: "1px solid #141414", padding: "1.75rem 2rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-          <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
-            <polygon points="14,3 27,25 1,25" fill="white" />
+          <svg width="22" height="20" viewBox="0 0 28 26" fill="none">
+            <polygon points="14,1 27,25 1,25" fill="white" />
             <clipPath id="tri-clip-footer">
-              <polygon points="14,3 27,25 1,25" />
+              <polygon points="14,1 27,25 1,25" />
             </clipPath>
-            <g clipPath="url(#tri-clip-footer)" stroke="#0a0a0a" strokeWidth="1.6" opacity="0.35">
-              <line x1="1" y1="10" x2="10" y2="28" />
-              <line x1="5" y1="7" x2="16" y2="28" />
-              <line x1="10" y1="5" x2="22" y2="27" />
-              <line x1="15" y1="3" x2="27" y2="22" />
-              <line x1="20" y1="3" x2="27" y2="16" />
+            <g clipPath="url(#tri-clip-footer)" stroke="#0a0a0a" strokeWidth="1.4">
+              <line x1="-2" y1="8"  x2="8"  y2="28" />
+              <line x1="2"  y1="4"  x2="14" y2="28" />
+              <line x1="7"  y1="2"  x2="20" y2="28" />
+              <line x1="13" y1="1"  x2="27" y2="20" />
+              <line x1="19" y1="1"  x2="27" y2="13" />
+              <line x1="30" y1="8"  x2="20" y2="28" />
+              <line x1="26" y1="4"  x2="14" y2="28" />
+              <line x1="21" y1="2"  x2="8"  y2="28" />
+              <line x1="15" y1="1"  x2="1"  y2="20" />
+              <line x1="9"  y1="1"  x2="1"  y2="13" />
             </g>
           </svg>
           <span style={{ fontWeight: 700, fontSize: "0.85rem", color: "#fff", letterSpacing: "-0.02em" }}>Runit</span>
