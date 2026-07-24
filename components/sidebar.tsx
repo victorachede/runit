@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Zap, LayoutDashboard, Bot, Users, CreditCard, Settings, LogOut } from "lucide-react";
 
 const navItems = [
@@ -10,6 +13,8 @@ const navItems = [
 ];
 
 export default function Sidebar() {
+  const pathname = usePathname()
+
   return (
     <aside style={{
       width: 240, background: "#0f172a", minHeight: "100vh",
@@ -28,20 +33,21 @@ export default function Sidebar() {
 
       {/* Nav */}
       <nav style={{ flex: 1, padding: "1.25rem 0.75rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-        {navItems.map((item) => (
-          <Link key={item.href} href={item.href} style={{
-            display: "flex", alignItems: "center", gap: "0.75rem",
-            padding: "0.65rem 0.875rem", borderRadius: 8, textDecoration: "none",
-            color: "#94a3b8", fontSize: "0.875rem", fontWeight: 500,
-            transition: "all 0.15s"
-          }}
-          onMouseOver={(e) => { (e.currentTarget as HTMLElement).style.background = "#1e293b"; (e.currentTarget as HTMLElement).style.color = "#ffffff"; }}
-          onMouseOut={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "#94a3b8"; }}
-          >
-            <item.icon size={17} />
-            {item.label}
-          </Link>
-        ))}
+        {navItems.map((item) => {
+          const active = pathname === item.href
+          return (
+            <Link key={item.href} href={item.href} style={{
+              display: "flex", alignItems: "center", gap: "0.75rem",
+              padding: "0.65rem 0.875rem", borderRadius: 8, textDecoration: "none",
+              color: active ? "#ffffff" : "#94a3b8",
+              background: active ? "#1e293b" : "transparent",
+              fontSize: "0.875rem", fontWeight: 500,
+            }}>
+              <item.icon size={17} />
+              {item.label}
+            </Link>
+          )
+        })}
       </nav>
 
       {/* User */}
