@@ -6,10 +6,10 @@ import { ArrowRight, Eye, EyeOff } from "lucide-react";
 const RunitLogo = ({ size = 24 }: { size?: number }) => (
   <svg width={size} height={Math.round(size * 0.93)} viewBox="0 0 28 26" fill="none">
     <polygon points="1,1 27,1 14,25" fill="white" />
-    <clipPath id="lc-login">
+    <clipPath id="rl-login">
       <polygon points="1,1 27,1 14,25" />
     </clipPath>
-    <g clipPath="url(#lc-login)" stroke="#08080a" strokeWidth="1.25">
+    <g clipPath="url(#rl-login)" stroke="#000" strokeWidth="1.25">
       <line x1="-4" y1="3"  x2="5"  y2="28" />
       <line x1="0"  y1="-1" x2="12" y2="28" />
       <line x1="5"  y1="-1" x2="19" y2="28" />
@@ -22,62 +22,59 @@ const RunitLogo = ({ size = 24 }: { size?: number }) => (
 );
 
 export default function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPw, setShowPw] = useState(false);
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [pw, setPw] = useState("");
+  const [focusEmail, setFocusEmail] = useState(false);
+  const [focusPw, setFocusPw] = useState(false);
 
   return (
     <div style={{
-      minHeight: "100vh",
-      display: "flex",
-      background: "#08080a",
-      fontFamily: "'Inter', system-ui, sans-serif",
+      minHeight: "100vh", background: "#000",
+      display: "flex", fontFamily: "'Inter', system-ui, sans-serif",
     }}>
-      {/* Left — form */}
+      {/* ── Left — form ───────────────────────────────────────────────────── */}
       <div style={{
         flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "3rem 2rem",
-        position: "relative",
+        display: "flex", flexDirection: "column",
+        padding: "0 clamp(1.5rem,6vw,5rem)",
       }}>
-        {/* Top nav */}
+        {/* Nav */}
         <div style={{
-          position: "absolute", top: 0, left: 0, right: 0,
-          padding: "1.25rem 2rem",
           display: "flex", alignItems: "center", justifyContent: "space-between",
+          height: 52, flexShrink: 0,
         }}>
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.5rem", textDecoration: "none" }}>
-            <RunitLogo size={22} />
-            <span style={{ fontWeight: 700, fontSize: "0.9rem", color: "#f2f2f5", letterSpacing: "-0.03em" }}>Runit</span>
+            <RunitLogo size={20} />
+            <span style={{ fontWeight: 700, fontSize: "0.875rem", color: "#fff", letterSpacing: "-0.03em" }}>Runit</span>
           </Link>
-          <p style={{ fontSize: "0.8rem", color: "#35353f" }}>
+          <p style={{ fontSize: "0.8rem", color: "#333" }}>
             No account?{" "}
-            <Link href="/signup" style={{ color: "#9d80fc", textDecoration: "none", fontWeight: 500 }}>Sign up free</Link>
+            <Link href="/signup" style={{ color: "#888", textDecoration: "none" }}>Sign up</Link>
           </p>
         </div>
 
-        {/* Form card */}
-        <div style={{ width: "100%", maxWidth: 380 }}>
-          <div style={{ marginBottom: "2.25rem" }}>
-            <h1 style={{
-              fontSize: "1.6rem", fontWeight: 700,
-              letterSpacing: "-0.04em", color: "#ebebf0",
-              marginBottom: "0.5rem",
-            }}>
-              Welcome back
-            </h1>
-            <p style={{ color: "#35353f", fontSize: "0.85rem" }}>
-              Sign in to continue to Runit
-            </p>
-          </div>
+        {/* Form */}
+        <div style={{
+          flex: 1, display: "flex", flexDirection: "column",
+          justifyContent: "center", maxWidth: 360, width: "100%",
+          paddingBottom: "4rem",
+        }}>
+          <h1 style={{
+            fontSize: "1.75rem", fontWeight: 700,
+            letterSpacing: "-0.04em", color: "#fff",
+            marginBottom: "0.5rem",
+          }}>
+            Welcome back
+          </h1>
+          <p style={{ fontSize: "0.85rem", color: "#3d3d3d", marginBottom: "2.25rem" }}>
+            Sign in to your Runit account
+          </p>
 
           <form onSubmit={e => e.preventDefault()} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
             {/* Email */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-              <label style={{ fontSize: "0.78rem", fontWeight: 500, color: "#55555e", letterSpacing: "0.01em" }}>
+            <div>
+              <label style={{ display: "block", fontSize: "0.78rem", color: "#444", marginBottom: "0.5rem", fontWeight: 400 }}>
                 Email address
               </label>
               <input
@@ -85,158 +82,128 @@ export default function LoginPage() {
                 placeholder="you@business.com"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
+                onFocus={() => setFocusEmail(true)}
+                onBlur={() => setFocusEmail(false)}
                 style={{
-                  width: "100%", padding: "0.7rem 0.875rem",
-                  background: "#0d0d11",
-                  border: "1px solid #1e1e28",
-                  borderRadius: 8, fontSize: "0.875rem",
-                  color: "#d8d8e8", outline: "none",
+                  width: "100%", padding: "0.65rem 0.875rem",
+                  background: "#0a0a0a",
+                  border: `1px solid ${focusEmail ? "#3a3a3a" : "#1a1a1a"}`,
+                  borderRadius: 7, fontSize: "0.875rem",
+                  color: "#e0e0e0", outline: "none",
                   transition: "border-color 0.15s",
                   fontFamily: "inherit",
                 }}
-                onFocus={e => (e.currentTarget.style.borderColor = "rgba(124,90,246,0.4)")}
-                onBlur={e => (e.currentTarget.style.borderColor = "#1e1e28")}
               />
             </div>
 
             {/* Password */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <label style={{ fontSize: "0.78rem", fontWeight: 500, color: "#55555e", letterSpacing: "0.01em" }}>
-                  Password
-                </label>
-                <a href="#" style={{ fontSize: "0.75rem", color: "#9d80fc", textDecoration: "none", fontWeight: 500 }}>
-                  Forgot password?
-                </a>
+            <div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
+                <label style={{ fontSize: "0.78rem", color: "#444", fontWeight: 400 }}>Password</label>
+                <a href="#" style={{ fontSize: "0.75rem", color: "#333", textDecoration: "none", transition: "color 0.15s" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "#888")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "#333")}
+                >Forgot password?</a>
               </div>
               <div style={{ position: "relative" }}>
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPw ? "text" : "password"}
                   placeholder="Enter your password"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  value={pw}
+                  onChange={e => setPw(e.target.value)}
+                  onFocus={() => setFocusPw(true)}
+                  onBlur={() => setFocusPw(false)}
                   style={{
-                    width: "100%", padding: "0.7rem 2.75rem 0.7rem 0.875rem",
-                    background: "#0d0d11",
-                    border: "1px solid #1e1e28",
-                    borderRadius: 8, fontSize: "0.875rem",
-                    color: "#d8d8e8", outline: "none",
+                    width: "100%", padding: "0.65rem 2.5rem 0.65rem 0.875rem",
+                    background: "#0a0a0a",
+                    border: `1px solid ${focusPw ? "#3a3a3a" : "#1a1a1a"}`,
+                    borderRadius: 7, fontSize: "0.875rem",
+                    color: "#e0e0e0", outline: "none",
                     transition: "border-color 0.15s",
                     fontFamily: "inherit",
                   }}
-                  onFocus={e => (e.currentTarget.style.borderColor = "rgba(124,90,246,0.4)")}
-                  onBlur={e => (e.currentTarget.style.borderColor = "#1e1e28")}
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(v => !v)}
-                  style={{
-                    position: "absolute", right: "0.75rem", top: "50%", transform: "translateY(-50%)",
-                    background: "none", border: "none", cursor: "pointer", color: "#35353f",
-                    display: "flex", alignItems: "center", padding: 0,
-                  }}
+                <button type="button" onClick={() => setShowPw(v => !v)} style={{
+                  position: "absolute", right: "0.75rem", top: "50%", transform: "translateY(-50%)",
+                  background: "none", border: "none", cursor: "pointer",
+                  color: "#333", display: "flex", padding: 0,
+                  transition: "color 0.15s",
+                }}
+                  onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#888")}
+                  onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#333")}
                 >
-                  {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+                  {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
                 </button>
               </div>
             </div>
 
-            {/* Submit */}
-            <button
-              type="submit"
-              style={{
-                display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem",
-                background: "#f0f0f5", color: "#08080a",
-                padding: "0.75rem", borderRadius: 8,
-                border: "none", cursor: "pointer",
-                fontWeight: 600, fontSize: "0.9rem",
-                letterSpacing: "-0.01em", fontFamily: "inherit",
-                marginTop: "0.25rem",
-                transition: "background 0.15s",
-              }}
-            >
+            <button type="submit" style={{
+              display: "flex", alignItems: "center", justifyContent: "center", gap: "0.4rem",
+              background: "#fff", color: "#000",
+              padding: "0.7rem", borderRadius: 7,
+              border: "none", cursor: "pointer",
+              fontWeight: 600, fontSize: "0.875rem",
+              fontFamily: "inherit", marginTop: "0.25rem",
+            }}>
               Sign in <ArrowRight size={13} />
             </button>
           </form>
 
-          {/* Divider */}
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem", margin: "1.5rem 0" }}>
-            <div style={{ flex: 1, height: 1, background: "#1a1a22" }} />
-            <span style={{ fontSize: "0.72rem", color: "#28282e" }}>or</span>
-            <div style={{ flex: 1, height: 1, background: "#1a1a22" }} />
+          <div style={{ display: "flex", alignItems: "center", gap: "0.875rem", margin: "1.75rem 0" }}>
+            <div style={{ flex: 1, height: 1, background: "#111" }} />
+            <span style={{ fontSize: "0.72rem", color: "#222" }}>or continue with</span>
+            <div style={{ flex: 1, height: 1, background: "#111" }} />
           </div>
 
-          <p style={{ textAlign: "center", fontSize: "0.82rem", color: "#28282e" }}>
+          <p style={{ textAlign: "center", fontSize: "0.8rem", color: "#2a2a2a" }}>
             Don&apos;t have an account?{" "}
-            <Link href="/signup" style={{ color: "#9d80fc", textDecoration: "none", fontWeight: 500 }}>
-              Create one free
-            </Link>
+            <Link href="/signup" style={{ color: "#555", textDecoration: "none", transition: "color 0.15s" }}
+              onMouseEnter={e => (e.currentTarget.style.color = "#ccc")}
+              onMouseLeave={e => (e.currentTarget.style.color = "#555")}
+            >Create one free</Link>
           </p>
         </div>
       </div>
 
-      {/* Right — decorative panel (hidden on mobile) */}
+      {/* ── Right — context panel ─────────────────────────────────────────── */}
       <div className="login-panel" style={{
-        width: 480,
-        background: "#0d0d11",
-        borderLeft: "1px solid #14141a",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+        width: 460,
+        background: "#060606",
+        borderLeft: "1px solid #111",
+        display: "flex", flexDirection: "column",
         justifyContent: "center",
-        padding: "3rem",
-        position: "relative",
-        overflow: "hidden",
+        padding: "3rem clamp(2rem,4vw,3.5rem)",
       }}>
-        <div aria-hidden style={{
-          position: "absolute", top: "20%", left: "50%", transform: "translateX(-50%)",
-          width: 400, height: 400,
-          background: "radial-gradient(ellipse, rgba(124,90,246,0.07) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }} />
-
-        {/* Testimonial card */}
+        {/* Quote card */}
         <div style={{
-          background: "#111116",
-          border: "1px solid #1e1e28",
-          borderRadius: 14,
-          padding: "1.75rem",
-          maxWidth: 340,
-          position: "relative",
+          background: "#0a0a0a", border: "1px solid #1a1a1a",
+          borderRadius: 10, padding: "1.75rem",
+          marginBottom: "2.5rem",
         }}>
-          <div style={{
-            position: "absolute", top: 0, left: 0, right: 0, height: 1,
-            background: "linear-gradient(90deg, transparent, rgba(124,90,246,0.3), transparent)",
-          }} />
-          <p style={{ fontSize: "0.9rem", color: "#6a6a7a", lineHeight: 1.75, marginBottom: "1.5rem", letterSpacing: "-0.01em" }}>
-            &ldquo;I used to spend 2 hours every Monday sending summaries to clients. Now Runit handles it while I sleep.&rdquo;
+          <p style={{ fontSize: "0.9rem", color: "#555", lineHeight: 1.8, marginBottom: "1.5rem", letterSpacing: "-0.01em" }}>
+            &ldquo;I used to spend two hours every Monday sending updates to clients. Runit handles it while I sleep.&rdquo;
           </p>
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-            <div style={{
-              width: 34, height: 34, borderRadius: "50%",
-              background: "linear-gradient(135deg, #7c5af6, #a78bfa)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: "0.78rem", fontWeight: 700, color: "#fff",
-            }}>
+            <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.78rem", fontWeight: 700, color: "#555" }}>
               A
             </div>
             <div>
-              <div style={{ fontSize: "0.8rem", fontWeight: 600, color: "#c8c8d8" }}>Adaeze Okafor</div>
-              <div style={{ fontSize: "0.72rem", color: "#35353f" }}>Owner, Okafor Consultants</div>
+              <p style={{ fontSize: "0.8rem", fontWeight: 500, color: "#666" }}>Adaeze Okafor</p>
+              <p style={{ fontSize: "0.72rem", color: "#2a2a2a" }}>Owner, Okafor Consultants</p>
             </div>
           </div>
         </div>
 
-        {/* Stats row */}
-        <div style={{ display: "flex", gap: "2rem", marginTop: "2.5rem" }}>
+        {/* Stats */}
+        <div style={{ display: "flex", gap: "2.5rem" }}>
           {[
-            { v: "1,000+", l: "Automations live" },
+            { v: "1,000+", l: "Automations running" },
             { v: "5", l: "Channels" },
             { v: "₦5k", l: "Per month" },
           ].map(({ v, l }) => (
-            <div key={l} style={{ textAlign: "center" }}>
-              <div style={{ fontSize: "1.1rem", fontWeight: 700, color: "#d8d8e8", letterSpacing: "-0.03em" }}>{v}</div>
-              <div style={{ fontSize: "0.7rem", color: "#28282e", marginTop: 2 }}>{l}</div>
+            <div key={l}>
+              <p style={{ fontSize: "1.1rem", fontWeight: 700, color: "#444", letterSpacing: "-0.03em" }}>{v}</p>
+              <p style={{ fontSize: "0.72rem", color: "#252525", marginTop: 3 }}>{l}</p>
             </div>
           ))}
         </div>
@@ -244,7 +211,7 @@ export default function LoginPage() {
 
       <style>{`
         .login-panel { display: flex; }
-        @media (max-width: 800px) { .login-panel { display: none !important; } }
+        @media (max-width: 768px) { .login-panel { display: none !important; } }
       `}</style>
     </div>
   );
