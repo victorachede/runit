@@ -13,61 +13,63 @@ const navItems = [
 ];
 
 export default function Sidebar() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <aside style={{
-      width: 240, background: "#0f172a", minHeight: "100vh",
-      display: "flex", flexDirection: "column", padding: "1.5rem 0",
-      position: "fixed", top: 0, left: 0, zIndex: 40
+      width: 220, background: "#0a0a0a", minHeight: "100vh",
+      display: "flex", flexDirection: "column",
+      position: "fixed", top: 0, left: 0, zIndex: 40,
+      borderRight: "1px solid #161616"
     }}>
       {/* Logo */}
-      <div style={{ padding: "0 1.25rem 1.5rem", borderBottom: "1px solid #1e293b" }}>
-        <Link href="/dashboard" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <div style={{ width: 32, height: 32, background: "#2563eb", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Zap size={16} color="#fff" />
+      <div style={{ padding: "1.25rem 1.1rem 1rem", borderBottom: "1px solid #161616" }}>
+        <Link href="/dashboard" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.45rem" }}>
+          <div style={{ width: 26, height: 26, background: "#f0f0f0", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Zap size={13} color="#0a0a0a" />
           </div>
-          <span style={{ fontWeight: 700, fontSize: "1.05rem", color: "#ffffff" }}>Runit</span>
+          <span style={{ fontWeight: 700, fontSize: "0.95rem", color: "#f0f0f0", letterSpacing: "-0.02em" }}>Runit</span>
         </Link>
       </div>
 
       {/* Nav */}
-      <nav style={{ flex: 1, padding: "1.25rem 0.75rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+      <nav style={{ flex: 1, padding: "0.875rem 0.625rem", display: "flex", flexDirection: "column", gap: "2px" }}>
         {navItems.map((item) => {
-          const active = pathname === item.href
+          const active = pathname === item.href;
           return (
             <Link key={item.href} href={item.href} style={{
-              display: "flex", alignItems: "center", gap: "0.75rem",
-              padding: "0.65rem 0.875rem", borderRadius: 8, textDecoration: "none",
-              color: active ? "#ffffff" : "#94a3b8",
-              background: active ? "#1e293b" : "transparent",
-              fontSize: "0.875rem", fontWeight: 500,
+              display: "flex", alignItems: "center", gap: "0.6rem",
+              padding: "0.55rem 0.75rem", borderRadius: 7, textDecoration: "none",
+              color: active ? "#f0f0f0" : "#444",
+              background: active ? "#161616" : "transparent",
+              fontSize: "0.835rem", fontWeight: active ? 500 : 400,
+              transition: "all 0.1s",
             }}>
-              <item.icon size={17} />
+              <item.icon size={15} />
               {item.label}
             </Link>
-          )
+          );
         })}
       </nav>
 
       {/* User */}
-      <div style={{ padding: "1rem 1.25rem", borderTop: "1px solid #1e293b" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.75rem" }}>
+      <div style={{ padding: "0.875rem 1.1rem", borderTop: "1px solid #161616" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.75rem" }}>
           <div style={{
-            width: 34, height: 34, background: "#2563eb", borderRadius: "50%",
+            width: 28, height: 28, background: "#1a1a1a", border: "1px solid #222", borderRadius: "50%",
             display: "flex", alignItems: "center", justifyContent: "center",
-            color: "#fff", fontWeight: 700, fontSize: "0.85rem"
+            color: "#888", fontWeight: 600, fontSize: "0.75rem"
           }}>V</div>
           <div>
-            <div style={{ color: "#ffffff", fontSize: "0.85rem", fontWeight: 500 }}>Victor A.</div>
-            <div style={{ color: "#64748b", fontSize: "0.75rem" }}>Black Sheep Co.</div>
+            <div style={{ color: "#f0f0f0", fontSize: "0.8rem", fontWeight: 500 }}>Victor A.</div>
+            <div style={{ color: "#333", fontSize: "0.7rem" }}>Black Sheep Co.</div>
           </div>
         </div>
         <Link href="/login" style={{
-          display: "flex", alignItems: "center", gap: "0.5rem",
-          color: "#64748b", fontSize: "0.8rem", textDecoration: "none"
+          display: "flex", alignItems: "center", gap: "0.4rem",
+          color: "#333", fontSize: "0.75rem", textDecoration: "none"
         }}>
-          <LogOut size={14} /> Sign out
+          <LogOut size={12} /> Sign out
         </Link>
       </div>
     </aside>
