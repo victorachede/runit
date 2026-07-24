@@ -237,23 +237,44 @@ export default function Landing() {
       <nav style={{
         position: "sticky", top: 0, zIndex: 100,
         display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "0 2rem", height: 56,
-        background: "rgba(10,10,10,0.85)", backdropFilter: "blur(12px)",
+        padding: "0 1.5rem", height: 60,
+        background: "rgba(10,10,10,0.92)", backdropFilter: "blur(16px)",
         borderBottom: "1px solid #161616",
       }}>
+        {/* Logo */}
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <div style={{ width: 26, height: 26, background: "#e0e0e0", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Zap size={13} color="#0a0a0a" strokeWidth={2.5} />
-          </div>
-          <span style={{ fontWeight: 700, fontSize: "0.95rem", letterSpacing: "-0.025em", color: "#e0e0e0" }}>Runit</span>
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            {/* Equilateral triangle */}
+            <polygon points="14,3 27,25 1,25" fill="white" />
+            {/* Diagonal slash lines across triangle — clipped */}
+            <clipPath id="tri-clip">
+              <polygon points="14,3 27,25 1,25" />
+            </clipPath>
+            <g clipPath="url(#tri-clip)" stroke="#0a0a0a" strokeWidth="1.6" opacity="0.35">
+              <line x1="1" y1="10" x2="10" y2="28" />
+              <line x1="5" y1="7" x2="16" y2="28" />
+              <line x1="10" y1="5" x2="22" y2="27" />
+              <line x1="15" y1="3" x2="27" y2="22" />
+              <line x1="20" y1="3" x2="27" y2="16" />
+            </g>
+          </svg>
+          <span style={{ fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.03em", color: "#fff" }}>Runit</span>
         </div>
-        <div style={{ display: "flex", gap: "0.625rem", alignItems: "center" }}>
-          <Link href="/login" style={{ color: "#555", textDecoration: "none", fontSize: "0.85rem", padding: "0.4rem 0.875rem" }}>Log in</Link>
+
+        {/* Right side */}
+        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+          <Link href="/login" style={{
+            color: "#888", textDecoration: "none",
+            fontSize: "0.875rem", fontWeight: 500,
+            padding: "0.45rem 1rem", borderRadius: 999,
+            transition: "color 0.15s",
+          }}>Log in</Link>
           <Link href="/signup" style={{
-            background: "#e0e0e0", color: "#0a0a0a", textDecoration: "none",
-            fontSize: "0.85rem", fontWeight: 600, padding: "0.4rem 1rem", borderRadius: 7,
-            letterSpacing: "-0.01em"
-          }}>Get started</Link>
+            background: "#fff", color: "#0a0a0a",
+            textDecoration: "none", fontSize: "0.875rem",
+            fontWeight: 600, padding: "0.45rem 1.1rem",
+            borderRadius: 999, letterSpacing: "-0.01em",
+          }}>Sign up</Link>
         </div>
       </nav>
 
@@ -433,10 +454,20 @@ export default function Landing() {
       {/* Footer */}
       <footer style={{ borderTop: "1px solid #141414", padding: "1.75rem 2rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-          <div style={{ width: 20, height: 20, background: "#e0e0e0", borderRadius: 5, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Zap size={10} color="#0a0a0a" strokeWidth={2.5} />
-          </div>
-          <span style={{ fontWeight: 700, fontSize: "0.85rem", color: "#e0e0e0", letterSpacing: "-0.02em" }}>Runit</span>
+          <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+            <polygon points="14,3 27,25 1,25" fill="white" />
+            <clipPath id="tri-clip-footer">
+              <polygon points="14,3 27,25 1,25" />
+            </clipPath>
+            <g clipPath="url(#tri-clip-footer)" stroke="#0a0a0a" strokeWidth="1.6" opacity="0.35">
+              <line x1="1" y1="10" x2="10" y2="28" />
+              <line x1="5" y1="7" x2="16" y2="28" />
+              <line x1="10" y1="5" x2="22" y2="27" />
+              <line x1="15" y1="3" x2="27" y2="22" />
+              <line x1="20" y1="3" x2="27" y2="16" />
+            </g>
+          </svg>
+          <span style={{ fontWeight: 700, fontSize: "0.85rem", color: "#fff", letterSpacing: "-0.02em" }}>Runit</span>
         </div>
         <p style={{ color: "#252525", fontSize: "0.75rem" }}>A Black Sheep Co. product · Built for Africa</p>
       </footer>
