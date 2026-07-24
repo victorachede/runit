@@ -5,21 +5,18 @@ import { ArrowRight, Eye, EyeOff } from "lucide-react";
 
 const RunitLogo = ({ size = 24 }: { size?: number }) => (
   <svg width={size} height={Math.round(size * 0.93)} viewBox="0 0 28 26" fill="none">
-    <polygon points="14,1 27,25 1,25" fill="white" />
+    <polygon points="1,1 27,1 14,25" fill="white" />
     <clipPath id="lc-login">
-      <polygon points="14,1 27,25 1,25" />
+      <polygon points="1,1 27,1 14,25" />
     </clipPath>
-    <g clipPath="url(#lc-login)" stroke="#08080a" strokeWidth="1.3">
-      <line x1="-2" y1="8"  x2="8"  y2="28" />
-      <line x1="2"  y1="4"  x2="14" y2="28" />
-      <line x1="7"  y1="2"  x2="20" y2="28" />
-      <line x1="13" y1="1"  x2="27" y2="20" />
-      <line x1="19" y1="1"  x2="27" y2="13" />
-      <line x1="30" y1="8"  x2="20" y2="28" />
-      <line x1="26" y1="4"  x2="14" y2="28" />
-      <line x1="21" y1="2"  x2="8"  y2="28" />
-      <line x1="15" y1="1"  x2="1"  y2="20" />
-      <line x1="9"  y1="1"  x2="1"  y2="13" />
+    <g clipPath="url(#lc-login)" stroke="#08080a" strokeWidth="1.25">
+      <line x1="-4" y1="3"  x2="5"  y2="28" />
+      <line x1="0"  y1="-1" x2="12" y2="28" />
+      <line x1="5"  y1="-1" x2="19" y2="28" />
+      <line x1="11" y1="-1" x2="26" y2="28" />
+      <line x1="17" y1="-1" x2="32" y2="24" />
+      <line x1="23" y1="-1" x2="32" y2="15" />
+      <line x1="29" y1="-1" x2="32" y2="5"  />
     </g>
   </svg>
 );
