@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, Check, Zap, Menu, X } from "lucide-react";
+import { ArrowRight, Check, Menu, X } from "lucide-react";
 
-// ─── Brand channel icons ──────────────────────────────────────────────────────
+// ─── Icons ────────────────────────────────────────────────────────────────────
 const GmailIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
     <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" fill="#EA4335"/>
@@ -27,7 +27,7 @@ const TelegramIcon = ({ size = 18 }: { size?: number }) => (
 
 const SMSIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <path d="M20 2H4a2 2 0 00-2 2v18l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2z" fill="#5a5a5a"/>
+    <path d="M20 2H4a2 2 0 00-2 2v18l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2z" fill="#8A8580"/>
     <path d="M7 9h10M7 13h6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/>
   </svg>
 );
@@ -39,13 +39,13 @@ const ZoomIcon = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
-const RunitLogo = ({ size = 26 }: { size?: number }) => (
+const RunitLogo = ({ size = 26, dark = false }: { size?: number; dark?: boolean }) => (
   <svg width={size} height={Math.round(size * 0.93)} viewBox="0 0 28 26" fill="none">
-    <polygon points="1,1 27,1 14,25" fill="white" />
+    <polygon points="1,1 27,1 14,25" fill={dark ? "#111110" : "#111110"} />
     <clipPath id="rl-main">
       <polygon points="1,1 27,1 14,25" />
     </clipPath>
-    <g clipPath="url(#rl-main)" stroke="#000000" strokeWidth="1.25">
+    <g clipPath="url(#rl-main)" stroke={dark ? "#F9F8F6" : "#F9F8F6"} strokeWidth="1.25">
       <line x1="-4" y1="3"  x2="5"  y2="28" />
       <line x1="0"  y1="-1" x2="12" y2="28" />
       <line x1="5"  y1="-1" x2="19" y2="28" />
@@ -57,11 +57,10 @@ const RunitLogo = ({ size = 26 }: { size?: number }) => (
   </svg>
 );
 
-// ─── Demo flows ────────────────────────────────────────────────────────────────
+// ─── Demo ─────────────────────────────────────────────────────────────────────
 const FLOWS = [
   {
     channel: "WhatsApp",
-    color: "#25D366",
     icon: <WhatsAppIcon size={13} />,
     prompt: "Send appointment reminders to my clients every morning at 8am",
     reply: "Done. WhatsApp reminders will go out to your 24 contacts every day at 8:00 AM.",
@@ -69,7 +68,6 @@ const FLOWS = [
   },
   {
     channel: "Gmail",
-    color: "#EA4335",
     icon: <GmailIcon size={13} />,
     prompt: "Email my customers a weekly sales summary every Monday",
     reply: "Set up. A sales summary email goes to your list every Monday at 9:00 AM.",
@@ -77,7 +75,6 @@ const FLOWS = [
   },
   {
     channel: "Telegram",
-    color: "#2AABEE",
     icon: <TelegramIcon size={13} />,
     prompt: "Blast my Telegram group before every event — 2 hours ahead",
     reply: "Ready. Your Telegram group gets a reminder 2 hours before each event automatically.",
@@ -85,7 +82,6 @@ const FLOWS = [
   },
   {
     channel: "SMS",
-    color: "#888888",
     icon: <SMSIcon size={13} />,
     prompt: "Send payment confirmation SMS when a client pays",
     reply: "On it. Every payment triggers an instant SMS confirmation to the client.",
@@ -128,25 +124,25 @@ function Demo() {
 
   return (
     <div style={{
-      background: "#0a0a0a",
-      border: "1px solid #1f1f1f",
-      borderRadius: 12,
+      background: "#FFFFFF",
+      border: "1px solid #E4E2DC",
+      borderRadius: 14,
       overflow: "hidden",
-      boxShadow: "0 0 0 1px rgba(255,255,255,0.03) inset",
+      boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.06)",
     }}>
       {/* Window chrome */}
       <div style={{
         padding: "0.625rem 1rem",
-        borderBottom: "1px solid #161616",
+        borderBottom: "1px solid #F0EFec",
         display: "flex", alignItems: "center", gap: "0.5rem",
-        background: "#060606",
+        background: "#FAFAF8",
       }}>
         <div style={{ display: "flex", gap: 5 }}>
-          {["#3a3a3a","#2e2e2e","#262626"].map(c => (
+          {["#E8E4DC","#DDD9D1","#D4D0C8"].map(c => (
             <div key={c} style={{ width: 9, height: 9, borderRadius: "50%", background: c }} />
           ))}
         </div>
-        <div style={{ flex: 1, textAlign: "center", fontSize: "0.68rem", color: "#282828", fontFamily: "monospace" }}>
+        <div style={{ flex: 1, textAlign: "center", fontSize: "0.68rem", color: "#C8C5BE", fontFamily: "monospace" }}>
           runit.app — dashboard
         </div>
         <div style={{ width: 40 }} />
@@ -157,75 +153,72 @@ function Demo() {
         {/* Sidebar */}
         <div style={{
           width: 180,
-          borderRight: "1px solid #141414",
+          borderRight: "1px solid #F0EFec",
           padding: "0.875rem 0",
-          background: "#060606",
+          background: "#FAFAF8",
           flexShrink: 0,
         }} className="demo-sidebar">
           <div style={{ padding: "0 0.75rem 0.625rem", marginBottom: "0.25rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <div style={{ width: 18, height: 18, background: "#1a1a1a", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <Zap size={9} color="#555" />
-              </div>
-              <span style={{ fontSize: "0.75rem", fontWeight: 600, color: "#555" }}>Runit</span>
+              <RunitLogo size={16} />
+              <span style={{ fontSize: "0.75rem", fontWeight: 600, color: "#111110" }}>Runit</span>
             </div>
           </div>
 
           {[
-            { label: "Automations", dot: true },
+            { label: "Automations", active: true },
             { label: "Contacts" },
             { label: "Analytics" },
             { label: "Settings" },
-          ].map(({ label, dot }) => (
+          ].map(({ label, active: isActive }) => (
             <div key={label} style={{
               padding: "0.3rem 0.75rem",
-              fontSize: "0.72rem", color: label === "Automations" ? "#888" : "#303030",
+              fontSize: "0.72rem",
+              color: isActive ? "#111110" : "#C0BDB7",
               display: "flex", alignItems: "center", gap: "0.4rem",
-              background: label === "Automations" ? "#0f0f0f" : "transparent",
+              background: isActive ? "#EEECEA" : "transparent",
+              fontWeight: isActive ? 500 : 400,
             }}>
-              {dot && <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 4px #22c55e66" }} />}
+              {isActive && <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#22c55e" }} />}
               {label}
             </div>
           ))}
 
-          <div style={{ height: 1, background: "#111", margin: "0.625rem 0" }} />
+          <div style={{ height: 1, background: "#F0EFec", margin: "0.625rem 0" }} />
 
           <div style={{ padding: "0 0.75rem", marginBottom: "0.25rem" }}>
-            <p style={{ fontSize: "0.62rem", color: "#252525", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "0.375rem" }}>Channels</p>
+            <p style={{ fontSize: "0.62rem", color: "#C0BDB7", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "0.375rem" }}>Channels</p>
           </div>
           {FLOWS.map((f, i) => (
             <button key={i} onClick={() => run(i)} style={{
               width: "100%", textAlign: "left",
               padding: "0.3rem 0.75rem",
               display: "flex", alignItems: "center", gap: "0.4rem",
-              background: active === i ? "#0f0f0f" : "transparent",
+              background: active === i ? "#EEECEA" : "transparent",
               border: "none", cursor: "pointer",
               fontSize: "0.72rem",
-              color: active === i ? "#666" : "#282828",
+              color: active === i ? "#111110" : "#C0BDB7",
               fontFamily: "inherit",
+              fontWeight: active === i ? 500 : 400,
               transition: "color 0.1s",
             }}>
-              <div style={{ opacity: active === i ? 1 : 0.4 }}>{f.icon}</div>
+              <div style={{ opacity: active === i ? 1 : 0.5 }}>{f.icon}</div>
               {f.channel}
             </button>
           ))}
         </div>
 
-        {/* Main area */}
-        <div style={{ flex: 1, padding: "1rem", minHeight: 220, display: "flex", flexDirection: "column", gap: "0.625rem", overflow: "hidden" }}>
-          {/* Header row */}
+        {/* Main */}
+        <div style={{ flex: 1, padding: "1rem", minHeight: 220, display: "flex", flexDirection: "column", gap: "0.625rem", overflow: "hidden", background: "#fff" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.25rem" }}>
-            <p style={{ fontSize: "0.75rem", fontWeight: 600, color: "#444" }}>New automation</p>
-            <div style={{ display: "flex", gap: "0.375rem" }}>
-              {["●","●","●"].map((d,i) => <span key={i} style={{ fontSize: "0.5rem", color: "#1f1f1f" }}>{d}</span>)}
-            </div>
+            <p style={{ fontSize: "0.75rem", fontWeight: 600, color: "#6B6860" }}>New automation</p>
           </div>
 
           {/* User bubble */}
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <div style={{
-              background: "#141414", border: "1px solid #1e1e1e",
-              color: "#aaaaaa", padding: "0.5rem 0.8rem",
+              background: "#111110", color: "#E8E4DC",
+              padding: "0.5rem 0.8rem",
               borderRadius: "10px 10px 2px 10px",
               fontSize: "0.77rem", maxWidth: "85%", lineHeight: 1.6,
             }}>
@@ -233,29 +226,27 @@ function Demo() {
             </div>
           </div>
 
-          {/* Thinking */}
           {phase === "thinking" && (
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <div style={{ width: 20, height: 20, background: "#0f0f0f", border: "1px solid #1a1a1a", borderRadius: 5, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <Zap size={9} color="#333" />
+              <div style={{ width: 20, height: 20, background: "#F0EFec", border: "1px solid #E4E2DC", borderRadius: 5, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <RunitLogo size={10} />
               </div>
               <div style={{ display: "flex", gap: 3 }}>
                 {[0,1,2].map(i => (
-                  <div key={i} style={{ width: 3.5, height: 3.5, borderRadius: "50%", background: "#222", animation: `pulse-dot 1.2s ease-in-out ${i * 0.2}s infinite` }} />
+                  <div key={i} style={{ width: 3.5, height: 3.5, borderRadius: "50%", background: "#C0BDB7", animation: `pulse-dot 1.2s ease-in-out ${i * 0.2}s infinite` }} />
                 ))}
               </div>
             </div>
           )}
 
-          {/* Reply */}
           {(phase === "typing" || phase === "done") && (
             <div style={{ display: "flex", gap: "0.5rem", alignItems: "flex-start" }}>
-              <div style={{ width: 20, height: 20, background: "#0f0f0f", border: "1px solid #1a1a1a", borderRadius: 5, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
-                <Zap size={9} color="#555" />
+              <div style={{ width: 20, height: 20, background: "#F0EFec", border: "1px solid #E4E2DC", borderRadius: 5, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
+                <RunitLogo size={10} />
               </div>
               <div style={{
-                background: "#0d0d0d", border: "1px solid #191919",
-                color: "#666", padding: "0.5rem 0.8rem",
+                background: "#FAFAF8", border: "1px solid #E4E2DC",
+                color: "#4A4845", padding: "0.5rem 0.8rem",
                 borderRadius: "10px 10px 10px 2px",
                 fontSize: "0.77rem", maxWidth: "85%", lineHeight: 1.6,
               }}>
@@ -264,20 +255,19 @@ function Demo() {
             </div>
           )}
 
-          {/* Live card */}
           {phase === "done" && (
             <div style={{
-              background: "#0a0a0a", border: "1px solid #1a1a1a",
+              background: "#FAFAF8", border: "1px solid #E4E2DC",
               borderRadius: 8, padding: "0.625rem 0.875rem",
               display: "flex", alignItems: "center", gap: "0.75rem",
               marginTop: 2,
             }}>
-              <div style={{ width: 28, height: 28, background: "#111", border: "1px solid #1a1a1a", borderRadius: 7, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <div style={{ width: 28, height: 28, background: "#F0EFec", border: "1px solid #E4E2DC", borderRadius: 7, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 {React.cloneElement(flow.icon as React.ReactElement, { size: 14 } as Record<string,unknown>)}
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: "0.75rem", fontWeight: 500, color: "#666", marginBottom: 1 }}>{flow.card.name}</div>
-                <div style={{ fontSize: "0.67rem", color: "#2a2a2a" }}>{flow.card.schedule} · {flow.card.contacts} contacts</div>
+                <div style={{ fontSize: "0.75rem", fontWeight: 500, color: "#111110", marginBottom: 1 }}>{flow.card.name}</div>
+                <div style={{ fontSize: "0.67rem", color: "#A8A59F" }}>{flow.card.schedule} · {flow.card.contacts} contacts</div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
                 <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#22c55e" }} />
@@ -291,133 +281,156 @@ function Demo() {
   );
 }
 
-// ─── Nav ──────────────────────────────────────────────────────────────────────
+// ─── Nav — floating pill ──────────────────────────────────────────────────────
 function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 8);
+    const h = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", h, { passive: true });
     return () => window.removeEventListener("scroll", h);
   }, []);
 
   return (
     <>
-      <nav style={{
-        position: "fixed", top: 0, left: 0, right: 0, zIndex: 200,
-        height: 52,
-        display: "flex", alignItems: "center",
-        padding: "0 clamp(1.5rem, 4vw, 3rem)",
-        background: scrolled ? "rgba(0,0,0,0.88)" : "transparent",
-        borderBottom: scrolled ? "1px solid #1a1a1a" : "1px solid transparent",
-        backdropFilter: scrolled ? "blur(16px)" : "none",
-        transition: "background 0.2s, border-color 0.2s, backdrop-filter 0.2s",
+      {/* Floating pill nav */}
+      <div style={{
+        position: "fixed",
+        top: 16,
+        left: "50%",
+        transform: "translateX(-50%)",
+        zIndex: 200,
+        width: "min(calc(100% - 2rem), 720px)",
       }}>
-        {/* Logo */}
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.5rem", textDecoration: "none", flexShrink: 0 }}>
-          <RunitLogo size={22} />
-          <span style={{ fontWeight: 700, fontSize: "0.9rem", letterSpacing: "-0.03em", color: "#fff" }}>Runit</span>
-        </Link>
-
-        {/* Centre links */}
-        <div style={{ flex: 1, display: "flex", justifyContent: "center", gap: "0" }} className="nav-centre">
-          {[
-            { label: "Product", href: "#" },
-            { label: "Pricing", href: "#pricing" },
-            { label: "Changelog", href: "#" },
-            { label: "Customers", href: "#" },
-          ].map(({ label, href }) => (
-            <a key={label} href={href} style={{
-              color: "#888", textDecoration: "none",
-              fontSize: "0.83rem", fontWeight: 400,
-              padding: "0.35rem 0.875rem",
-              transition: "color 0.15s",
-            }}
-              onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-              onMouseLeave={e => (e.currentTarget.style.color = "#888")}
-            >{label}</a>
-          ))}
-        </div>
-
-        {/* Right side */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0" }} className="nav-right">
-          {/* Divider */}
-          <div style={{ width: 1, height: 16, background: "#1f1f1f", margin: "0 1rem 0 0" }} />
-          <Link href="/login" style={{
-            color: "#888", textDecoration: "none",
-            fontSize: "0.83rem", fontWeight: 400,
-            padding: "0.35rem 0.875rem",
-            transition: "color 0.15s",
-          }}
-            onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-            onMouseLeave={e => (e.currentTarget.style.color = "#888")}
-          >Log in</Link>
-          <Link href="/signup" style={{
-            color: "#fff", textDecoration: "none",
-            fontSize: "0.83rem", fontWeight: 500,
-            padding: "0.35rem 0.875rem",
-            border: "1px solid rgba(255,255,255,0.18)",
-            borderRadius: 6,
-            transition: "border-color 0.15s, color 0.15s",
-          }}
-            onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.35)";
-            }}
-            onMouseLeave={e => {
-              (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.18)";
-            }}
-          >Sign up</Link>
-        </div>
-
-        {/* Mobile toggle */}
-        <button onClick={() => setOpen(v => !v)} className="nav-mobile" style={{
-          background: "none", border: "none", cursor: "pointer",
-          color: "#888", padding: "0.5rem", display: "flex",
+        <nav style={{
+          display: "flex",
+          alignItems: "center",
+          height: 48,
+          padding: "0 6px 0 16px",
+          background: scrolled ? "rgba(249,248,246,0.88)" : "rgba(249,248,246,0.72)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          border: "1px solid rgba(0,0,0,0.08)",
+          borderRadius: 100,
+          boxShadow: scrolled
+            ? "0 2px 16px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04)"
+            : "0 1px 4px rgba(0,0,0,0.04)",
+          transition: "background 0.25s, box-shadow 0.25s",
         }}>
-          {open ? <X size={18} /> : <Menu size={18} />}
-        </button>
-      </nav>
+          {/* Logo */}
+          <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.45rem", textDecoration: "none", flexShrink: 0, marginRight: "auto" }}>
+            <RunitLogo size={20} />
+            <span style={{ fontWeight: 700, fontSize: "0.875rem", letterSpacing: "-0.03em", color: "#111110" }}>Runit</span>
+          </Link>
+
+          {/* Centre links — hidden on mobile */}
+          <div className="nav-links" style={{ display: "flex", gap: 0, position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
+            {[
+              { label: "Product", href: "#" },
+              { label: "Pricing", href: "#pricing" },
+              { label: "Customers", href: "#" },
+            ].map(({ label, href }) => (
+              <a key={label} href={href} style={{
+                color: "#6B6860",
+                textDecoration: "none",
+                fontSize: "0.83rem",
+                fontWeight: 400,
+                padding: "0.35rem 0.875rem",
+                borderRadius: 100,
+                transition: "color 0.15s, background 0.15s",
+                whiteSpace: "nowrap",
+              }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.color = "#111110";
+                  (e.currentTarget as HTMLElement).style.background = "rgba(0,0,0,0.05)";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.color = "#6B6860";
+                  (e.currentTarget as HTMLElement).style.background = "transparent";
+                }}
+              >{label}</a>
+            ))}
+          </div>
+
+          {/* Right */}
+          <div className="nav-right" style={{ display: "flex", alignItems: "center", gap: "0.25rem", marginLeft: "auto" }}>
+            <Link href="/login" style={{
+              color: "#6B6860",
+              textDecoration: "none",
+              fontSize: "0.83rem",
+              padding: "0.4rem 0.875rem",
+              borderRadius: 100,
+              transition: "color 0.15s, background 0.15s",
+            }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.color = "#111110";
+                (e.currentTarget as HTMLElement).style.background = "rgba(0,0,0,0.05)";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.color = "#6B6860";
+                (e.currentTarget as HTMLElement).style.background = "transparent";
+              }}
+            >Log in</Link>
+            <Link href="/signup" style={{
+              color: "#F9F8F6",
+              background: "#111110",
+              textDecoration: "none",
+              fontSize: "0.83rem",
+              fontWeight: 500,
+              padding: "0.45rem 1rem",
+              borderRadius: 100,
+              transition: "background 0.15s",
+              whiteSpace: "nowrap",
+            }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#333"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#111110"; }}
+            >Get started</Link>
+          </div>
+
+          {/* Mobile hamburger */}
+          <button onClick={() => setOpen(v => !v)} className="nav-mobile" style={{
+            background: "none", border: "none", cursor: "pointer",
+            color: "#6B6860", padding: "0.5rem", display: "none",
+            marginLeft: "0.5rem",
+          }}>
+            {open ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </nav>
+      </div>
 
       {/* Mobile drawer */}
       {open && (
-        <div className="nav-drawer" style={{
-          position: "fixed", inset: 0, top: 52, background: "#000",
-          zIndex: 199, padding: "1.5rem clamp(1.5rem,4vw,3rem)",
+        <div style={{
+          position: "fixed", inset: 0, top: 76, background: "#F9F8F6",
+          zIndex: 199, padding: "1.5rem 1.5rem",
           display: "flex", flexDirection: "column",
         }}>
-          {["Product","Pricing","Changelog","Customers"].map(l => (
+          {["Product","Pricing","Customers"].map(l => (
             <a key={l} href="#" onClick={() => setOpen(false)} style={{
-              color: "#888", textDecoration: "none", fontSize: "1.1rem",
-              padding: "0.875rem 0", borderBottom: "1px solid #111",
+              color: "#6B6860", textDecoration: "none", fontSize: "1.1rem",
+              padding: "0.875rem 0", borderBottom: "1px solid #E4E2DC",
             }}>{l}</a>
           ))}
           <div style={{ marginTop: "1.5rem", display: "flex", flexDirection: "column", gap: "0.625rem" }}>
             <Link href="/login" onClick={() => setOpen(false)} style={{
-              color: "#888", textDecoration: "none", fontSize: "0.9rem",
-              padding: "0.75rem 1rem", border: "1px solid #1a1a1a",
-              borderRadius: 7, textAlign: "center",
+              color: "#6B6860", textDecoration: "none", fontSize: "0.9rem",
+              padding: "0.75rem 1rem", border: "1px solid #E4E2DC",
+              borderRadius: 10, textAlign: "center",
             }}>Log in</Link>
             <Link href="/signup" onClick={() => setOpen(false)} style={{
-              color: "#fff", textDecoration: "none", fontSize: "0.9rem",
-              padding: "0.75rem 1rem",
-              border: "1px solid rgba(255,255,255,0.2)",
-              borderRadius: 7, textAlign: "center", fontWeight: 500,
-            }}>Sign up</Link>
+              color: "#F9F8F6", background: "#111110", textDecoration: "none", fontSize: "0.9rem",
+              padding: "0.75rem 1rem", borderRadius: 10, textAlign: "center", fontWeight: 500,
+            }}>Get started</Link>
           </div>
         </div>
       )}
 
       <style>{`
-        .nav-centre { display: none; }
-        .nav-right   { display: none; }
-        .nav-mobile  { display: flex;  }
-        .nav-drawer  { display: flex;  }
-        @media (min-width: 768px) {
-          .nav-centre { display: flex; }
-          .nav-right  { display: flex; }
-          .nav-mobile { display: none; }
-          .nav-drawer { display: none !important; }
+        @media (max-width: 640px) {
+          .nav-links  { display: none !important; }
+          .nav-right  { display: none !important; }
+          .nav-mobile { display: flex !important; }
         }
       `}</style>
     </>
@@ -430,193 +443,169 @@ const MAX = 1100;
 
 export default function Landing() {
   return (
-    <div style={{ background: "#000", color: "#fff", minHeight: "100vh", fontFamily: "'Inter', system-ui, sans-serif" }}>
+    <div style={{ background: "#F9F8F6", color: "#111110", minHeight: "100vh", fontFamily: "'DM Sans', system-ui, sans-serif" }}>
       <Nav />
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
       <section style={{
-        padding: `8rem ${PX} 5rem`,
+        padding: `9rem ${PX} 5rem`,
         maxWidth: MAX + 96,
         margin: "0 auto",
       }}>
-        {/* New tag — exactly like Linear's "New → Coding Sessions →" */}
+        {/* Badge */}
         <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "2.75rem" }}>
           <span style={{
             fontSize: "0.72rem", fontWeight: 600,
-            background: "#fff", color: "#000",
-            padding: "0.15rem 0.5rem", borderRadius: 4,
+            background: "#111110", color: "#F9F8F6",
+            padding: "0.2rem 0.6rem", borderRadius: 100,
             letterSpacing: "0.02em",
           }}>New</span>
           <a href="#" style={{
             display: "flex", alignItems: "center", gap: "0.3rem",
-            color: "#555", textDecoration: "none", fontSize: "0.82rem",
+            color: "#A8A59F", textDecoration: "none", fontSize: "0.82rem",
             transition: "color 0.15s",
           }}
-            onMouseEnter={e => (e.currentTarget.style.color = "#aaa")}
-            onMouseLeave={e => (e.currentTarget.style.color = "#555")}
+            onMouseEnter={e => (e.currentTarget.style.color = "#6B6860")}
+            onMouseLeave={e => (e.currentTarget.style.color = "#A8A59F")}
           >
             Zoom & SMS channels now live
             <ArrowRight size={13} />
           </a>
         </div>
 
-        {/* Headline — left-aligned, enormous, like Linear */}
+        {/* Headline — Instrument Serif for the emotional punch */}
         <h1 style={{
-          fontSize: "clamp(2.8rem, 6.5vw, 5.25rem)",
-          fontWeight: 700,
-          lineHeight: 1.06,
-          letterSpacing: "-0.045em",
-          color: "#fff",
-          maxWidth: 800,
+          fontFamily: "'Instrument Serif', Georgia, serif",
+          fontSize: "clamp(3rem, 7vw, 5.75rem)",
+          fontWeight: 400,
+          lineHeight: 1.04,
+          letterSpacing: "-0.02em",
+          color: "#111110",
+          maxWidth: 820,
           marginBottom: "1.5rem",
         }}>
           The business automation<br />
-          system for African SMEs
+          <em style={{ fontStyle: "italic", color: "#6B6860" }}>system for African SMEs</em>
         </h1>
 
-        {/* Subline */}
         <p style={{
           fontSize: "1rem",
-          color: "#666",
+          color: "#6B6860",
           lineHeight: 1.75,
-          maxWidth: 480,
+          maxWidth: 440,
           marginBottom: "2.25rem",
-          letterSpacing: "-0.01em",
           fontWeight: 400,
         }}>
-          Purpose-built for small businesses. Describe what you need
-          in plain English — Runit handles reminders, reports, and
+          Describe what you need in plain English — Runit handles reminders, reports, and
           confirmations across WhatsApp, Gmail, Telegram, SMS, and Zoom.
         </p>
 
-        {/* CTAs — same structure as Linear */}
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.875rem", flexWrap: "wrap" }}>
           <Link href="/signup" style={{
             display: "inline-flex", alignItems: "center", gap: "0.4rem",
-            background: "#fff", color: "#000",
-            padding: "0.625rem 1.25rem", borderRadius: 7,
-            textDecoration: "none", fontWeight: 600,
+            background: "#111110", color: "#F9F8F6",
+            padding: "0.7rem 1.375rem", borderRadius: 100,
+            textDecoration: "none", fontWeight: 500,
             fontSize: "0.875rem",
-          }}>
+            transition: "background 0.15s",
+          }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#333"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#111110"; }}
+          >
             Get started <ArrowRight size={13} />
           </Link>
           <a href="#demo" style={{
             display: "inline-flex", alignItems: "center", gap: "0.3rem",
-            color: "#555", textDecoration: "none", fontSize: "0.875rem",
+            color: "#A8A59F", textDecoration: "none", fontSize: "0.875rem",
             transition: "color 0.15s",
           }}
-            onMouseEnter={e => (e.currentTarget.style.color = "#ccc")}
-            onMouseLeave={e => (e.currentTarget.style.color = "#555")}
+            onMouseEnter={e => (e.currentTarget.style.color = "#111110")}
+            onMouseLeave={e => (e.currentTarget.style.color = "#A8A59F")}
           >
             See how it works <ArrowRight size={13} />
           </a>
         </div>
       </section>
 
-      {/* ── Product UI demo — full width, like Linear's app screenshot ─────── */}
-      <section id="demo" style={{
-        padding: `0 ${PX} 6rem`,
-        maxWidth: MAX + 96,
-        margin: "0 auto",
-      }}>
+      {/* ── Demo ──────────────────────────────────────────────────────────── */}
+      <section id="demo" style={{ padding: `0 ${PX} 6rem`, maxWidth: MAX + 96, margin: "0 auto" }}>
         <Demo />
       </section>
 
-      {/* ── Horizontal rule ───────────────────────────────────────────────── */}
-      <div style={{ height: 1, background: "#111", margin: `0 ${PX}` }} />
+      <div style={{ height: 1, background: "#E4E2DC", margin: `0 ${PX}` }} />
 
       {/* ── How it works ──────────────────────────────────────────────────── */}
       <section style={{ padding: `6rem ${PX}`, maxWidth: MAX + 96, margin: "0 auto" }}>
-        <p style={{ fontSize: "0.78rem", color: "#444", letterSpacing: "0.04em", textTransform: "uppercase", fontWeight: 500, marginBottom: "3.5rem" }}>
+        <p style={{ fontSize: "0.78rem", color: "#A8A59F", letterSpacing: "0.06em", textTransform: "uppercase", fontWeight: 500, marginBottom: "3.5rem" }}>
           How it works
         </p>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0" }} className="steps-grid">
           {[
-            { n: "01", title: "Describe it", body: "Type what you want in plain English. No forms to fill, no workflows to drag around — just write it out." },
+            { n: "01", title: "Describe it", body: "Type what you want in plain English. No forms, no drag and drop — just write it out." },
             { n: "02", title: "Confirm it", body: "Runit repeats back exactly what it understood. One tap to approve. Nothing runs until you say so." },
-            { n: "03", title: "It runs", body: "Your automation goes live and keeps going. Messages hit every recipient, on time, every time, every channel." },
+            { n: "03", title: "It runs", body: "Your automation goes live and keeps going. Messages hit every recipient, on time, every time." },
           ].map((s, i) => (
             <div key={s.n} style={{
               padding: "2.5rem 2.5rem 2.5rem 0",
-              borderRight: i < 2 ? "1px solid #111" : "none",
+              borderRight: i < 2 ? "1px solid #E4E2DC" : "none",
               paddingLeft: i > 0 ? "2.5rem" : 0,
             }} className={`step-${i}`}>
-              <div style={{ fontSize: "0.72rem", color: "#2e2e2e", fontWeight: 500, letterSpacing: "0.04em", marginBottom: "1.5rem" }}>{s.n}</div>
-              <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: "#e0e0e0", letterSpacing: "-0.025em", marginBottom: "0.75rem" }}>{s.title}</h3>
-              <p style={{ color: "#444", fontSize: "0.875rem", lineHeight: 1.75 }}>{s.body}</p>
+              <div style={{ fontSize: "0.72rem", color: "#C0BDB7", fontWeight: 500, letterSpacing: "0.04em", marginBottom: "1.5rem" }}>{s.n}</div>
+              <h3 style={{
+                fontFamily: "'Instrument Serif', Georgia, serif",
+                fontSize: "1.35rem", fontWeight: 400,
+                color: "#111110", letterSpacing: "-0.01em", marginBottom: "0.75rem"
+              }}>{s.title}</h3>
+              <p style={{ color: "#6B6860", fontSize: "0.875rem", lineHeight: 1.75 }}>{s.body}</p>
             </div>
           ))}
         </div>
 
         <style>{`
-          .steps-grid { }
           @media (max-width: 640px) {
             .steps-grid { grid-template-columns: 1fr !important; }
-            .step-0, .step-1, .step-2 { padding-left: 0 !important; padding-right: 0 !important; border-right: none !important; border-bottom: 1px solid #111; padding-bottom: 2rem; margin-bottom: 0; }
+            .step-0, .step-1, .step-2 { padding-left: 0 !important; padding-right: 0 !important; border-right: none !important; border-bottom: 1px solid #E4E2DC; padding-bottom: 2rem; }
             .step-2 { border-bottom: none !important; }
           }
         `}</style>
       </section>
 
-      {/* ── Horizontal rule ───────────────────────────────────────────────── */}
-      <div style={{ height: 1, background: "#111", margin: `0 ${PX}` }} />
+      <div style={{ height: 1, background: "#E4E2DC", margin: `0 ${PX}` }} />
 
-      {/* ── Features ─────────────────────────────────────────────────────── */}
+      {/* ── Features ──────────────────────────────────────────────────────── */}
       <section style={{ padding: `6rem ${PX}`, maxWidth: MAX + 96, margin: "0 auto" }}>
-        <p style={{ fontSize: "0.78rem", color: "#444", letterSpacing: "0.04em", textTransform: "uppercase", fontWeight: 500, marginBottom: "3.5rem" }}>
+        <p style={{ fontSize: "0.78rem", color: "#A8A59F", letterSpacing: "0.06em", textTransform: "uppercase", fontWeight: 500, marginBottom: "3.5rem" }}>
           Features
         </p>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", background: "#111" }} className="feat-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", background: "#E4E2DC", border: "1px solid #E4E2DC", borderRadius: 2, overflow: "hidden" }} className="feat-grid">
           {[
-            {
-              title: "Plain English commands",
-              body: "Describe what you want the way you'd tell a person. Runit understands context, timing, and who to send to — no technical knowledge required.",
-            },
-            {
-              title: "Scheduled & event-triggered",
-              body: "Run automations on a fixed schedule — daily, weekly, or custom. Or trigger them on events: a payment received, a form submitted, a new contact added.",
-            },
-            {
-              title: "Every channel, one place",
-              body: "WhatsApp, Gmail, Telegram, SMS, and Zoom from a single dashboard. Your customers receive messages on whichever channel they actually use.",
-            },
-            {
-              title: "Delivery analytics",
-              body: "Know when messages are delivered and read. Track open rates and engagement per channel. Spot problems before they affect your customers.",
-            },
-            {
-              title: "Contact management",
-              body: "Import your customer list and segment it however you need. Tag contacts, filter by channel, and target exactly the right group every time.",
-            },
-            {
-              title: "One-tap confirmation",
-              body: "Before anything goes live, Runit shows you a plain-language summary of exactly what it understood and what it will do. You stay in control.",
-            },
+            { title: "Plain English commands", body: "Describe what you want the way you'd tell a person. No technical knowledge required." },
+            { title: "Scheduled & event-triggered", body: "Run on a fixed schedule or trigger them on events: a payment, a form, a new contact." },
+            { title: "Every channel, one place", body: "WhatsApp, Gmail, Telegram, SMS, and Zoom from a single dashboard." },
+            { title: "Delivery analytics", body: "Know when messages are delivered and read. Track open rates per channel." },
+            { title: "Contact management", body: "Import your list, segment by tag or channel, and target exactly the right group." },
+            { title: "One-tap confirmation", body: "Runit shows a plain-language summary before anything goes live. You stay in control." },
           ].map(({ title, body }) => (
-            <div key={title} style={{ background: "#000", padding: "2.25rem 2.25rem" }}>
-              <h3 style={{ fontSize: "0.95rem", fontWeight: 600, color: "#c8c8c8", letterSpacing: "-0.02em", marginBottom: "0.625rem" }}>{title}</h3>
-              <p style={{ color: "#3d3d3d", fontSize: "0.85rem", lineHeight: 1.8 }}>{body}</p>
+            <div key={title} style={{ background: "#F9F8F6", padding: "2.25rem" }}>
+              <h3 style={{ fontSize: "0.95rem", fontWeight: 500, color: "#111110", marginBottom: "0.625rem", letterSpacing: "-0.01em" }}>{title}</h3>
+              <p style={{ color: "#A8A59F", fontSize: "0.85rem", lineHeight: 1.8 }}>{body}</p>
             </div>
           ))}
-          <style>{`
-            .feat-grid { border: 1px solid #111; border-radius: 2px; overflow: hidden; }
-            @media (max-width: 640px) { .feat-grid { grid-template-columns: 1fr !important; } }
-          `}</style>
+          <style>{`@media (max-width: 640px) { .feat-grid { grid-template-columns: 1fr !important; } }`}</style>
         </div>
       </section>
 
-      {/* ── Horizontal rule ───────────────────────────────────────────────── */}
-      <div style={{ height: 1, background: "#111", margin: `0 ${PX}` }} />
+      <div style={{ height: 1, background: "#E4E2DC", margin: `0 ${PX}` }} />
 
-      {/* ── Channels ─────────────────────────────────────────────────────── */}
+      {/* ── Channels ──────────────────────────────────────────────────────── */}
       <section style={{ padding: `6rem ${PX}`, maxWidth: MAX + 96, margin: "0 auto" }}>
-        <p style={{ fontSize: "0.78rem", color: "#444", letterSpacing: "0.04em", textTransform: "uppercase", fontWeight: 500, marginBottom: "3.5rem" }}>
+        <p style={{ fontSize: "0.78rem", color: "#A8A59F", letterSpacing: "0.06em", textTransform: "uppercase", fontWeight: 500, marginBottom: "3.5rem" }}>
           Channels
         </p>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: "1px", background: "#111" }} className="ch-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "1px", background: "#E4E2DC", border: "1px solid #E4E2DC", borderRadius: 2, overflow: "hidden" }} className="ch-grid">
           {[
             { Icon: WhatsAppIcon, name: "WhatsApp", desc: "Direct to phone. No app needed on your side." },
             { Icon: GmailIcon, name: "Gmail", desc: "Sent from your real Gmail address." },
@@ -624,140 +613,128 @@ export default function Landing() {
             { Icon: SMSIcon, name: "SMS", desc: "Works on any phone, anywhere." },
             { Icon: ZoomIcon, name: "Zoom", desc: "Auto-generate links and invites." },
           ].map(({ Icon, name, desc }) => (
-            <div key={name} style={{ background: "#000", padding: "2rem 1.75rem" }}>
-              <div style={{ marginBottom: "1.25rem", opacity: 0.7 }}>
-                <Icon size={20} />
-              </div>
-              <div style={{ fontSize: "0.875rem", fontWeight: 500, color: "#888", marginBottom: "0.4rem", letterSpacing: "-0.01em" }}>{name}</div>
-              <div style={{ fontSize: "0.8rem", color: "#333", lineHeight: 1.65 }}>{desc}</div>
+            <div key={name} style={{ background: "#F9F8F6", padding: "2rem 1.75rem" }}>
+              <div style={{ marginBottom: "1.25rem" }}><Icon size={20} /></div>
+              <div style={{ fontSize: "0.875rem", fontWeight: 500, color: "#111110", marginBottom: "0.4rem" }}>{name}</div>
+              <div style={{ fontSize: "0.8rem", color: "#A8A59F", lineHeight: 1.65 }}>{desc}</div>
             </div>
           ))}
-          <style>{`
-            .ch-grid { border: 1px solid #111; border-radius: 2px; overflow: hidden; }
-            @media (max-width: 640px) { .ch-grid { grid-template-columns: 1fr 1fr !important; } }
-          `}</style>
+          <style>{`@media (max-width: 640px) { .ch-grid { grid-template-columns: 1fr 1fr !important; } }`}</style>
         </div>
       </section>
 
-      {/* ── Horizontal rule ───────────────────────────────────────────────── */}
-      <div style={{ height: 1, background: "#111", margin: `0 ${PX}` }} />
+      <div style={{ height: 1, background: "#E4E2DC", margin: `0 ${PX}` }} />
 
-      {/* ── Pricing — Linear-style flat columns ───────────────────────────── */}
+      {/* ── Pricing ───────────────────────────────────────────────────────── */}
       <section id="pricing" style={{ padding: `6rem ${PX}`, maxWidth: MAX + 96, margin: "0 auto" }}>
-        <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, letterSpacing: "-0.045em", color: "#fff", marginBottom: "4rem" }}>
+        <h2 style={{
+          fontFamily: "'Instrument Serif', Georgia, serif",
+          fontSize: "clamp(2rem, 4vw, 3rem)",
+          fontWeight: 400, letterSpacing: "-0.02em",
+          color: "#111110", marginBottom: "4rem"
+        }}>
           Pricing
         </h2>
 
-        {/* Two columns — Free trial + Pro, like Linear */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "0", borderTop: "1px solid #1a1a1a" }} className="price-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "0", borderTop: "1px solid #E4E2DC" }} className="price-grid">
           {/* Free */}
-          <div style={{ padding: "2.5rem 2.5rem 2.5rem 0", borderRight: "1px solid #1a1a1a" }}>
-            <p style={{ fontSize: "1.1rem", fontWeight: 600, color: "#e0e0e0", marginBottom: "0.5rem" }}>Free trial</p>
-            <p style={{ fontSize: "1.5rem", fontWeight: 700, color: "#fff", letterSpacing: "-0.03em", marginBottom: "0.4rem" }}>₦0</p>
-            <p style={{ fontSize: "0.8rem", color: "#3a3a3a", marginBottom: "2rem" }}>14 days, no card required</p>
+          <div style={{ padding: "2.5rem 2.5rem 2.5rem 0", borderRight: "1px solid #E4E2DC" }}>
+            <p style={{ fontSize: "1rem", fontWeight: 500, color: "#111110", marginBottom: "0.5rem" }}>Free trial</p>
+            <p style={{ fontSize: "1.5rem", fontWeight: 600, color: "#111110", letterSpacing: "-0.03em", marginBottom: "0.4rem" }}>₦0</p>
+            <p style={{ fontSize: "0.8rem", color: "#A8A59F", marginBottom: "2rem" }}>14 days, no card required</p>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "2.5rem" }}>
               {["All Pro features included","Up to 50 contacts","5 automations","All 5 channels"].map(f => (
                 <div key={f} style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
-                  <Check size={13} color="#444" strokeWidth={2.5} />
-                  <span style={{ fontSize: "0.82rem", color: "#444" }}>{f}</span>
+                  <Check size={13} color="#C0BDB7" strokeWidth={2.5} />
+                  <span style={{ fontSize: "0.82rem", color: "#6B6860" }}>{f}</span>
                 </div>
               ))}
             </div>
             <Link href="/signup" style={{
               display: "block", textAlign: "center",
-              background: "#111", color: "#888",
-              padding: "0.7rem 1rem", borderRadius: 7,
+              background: "#F0EFec", color: "#6B6860",
+              padding: "0.7rem 1rem", borderRadius: 8,
               textDecoration: "none", fontWeight: 500,
-              fontSize: "0.875rem",
-              border: "1px solid #1f1f1f",
+              fontSize: "0.875rem", border: "1px solid #E4E2DC",
               transition: "border-color 0.15s",
             }}>Get started</Link>
           </div>
 
           {/* Pro */}
-          <div style={{ padding: "2.5rem", borderRight: "1px solid #1a1a1a", gridColumn: "2 / 4" }}>
-            <p style={{ fontSize: "1.1rem", fontWeight: 600, color: "#e0e0e0", marginBottom: "0.5rem" }}>Pro</p>
+          <div style={{ padding: "2.5rem", borderRight: "1px solid #E4E2DC", gridColumn: "2 / 4", background: "#FFFFFF", borderTop: "2px solid #111110", marginTop: -1 }}>
+            <p style={{ fontSize: "1rem", fontWeight: 500, color: "#111110", marginBottom: "0.5rem" }}>Pro</p>
             <div style={{ display: "flex", alignItems: "baseline", gap: "0.3rem", marginBottom: "0.4rem" }}>
-              <span style={{ fontSize: "1.5rem", fontWeight: 700, color: "#fff", letterSpacing: "-0.03em" }}>₦5,000</span>
-              <span style={{ fontSize: "0.8rem", color: "#444" }}>/ month</span>
+              <span style={{ fontSize: "1.5rem", fontWeight: 600, color: "#111110", letterSpacing: "-0.03em" }}>₦5,000</span>
+              <span style={{ fontSize: "0.8rem", color: "#A8A59F" }}>/ month</span>
             </div>
-            <p style={{ fontSize: "0.8rem", color: "#3a3a3a", marginBottom: "2rem" }}>Pay in Naira via Paystack · Cancel anytime</p>
+            <p style={{ fontSize: "0.8rem", color: "#A8A59F", marginBottom: "2rem" }}>Pay in Naira via Paystack · Cancel anytime</p>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.625rem 2rem", marginBottom: "2.5rem" }}>
               {[
-                "Unlimited automations",
-                "Up to 1,000 contacts",
-                "Gmail, WhatsApp, Telegram",
-                "SMS & Zoom included",
-                "AI plain-English setup",
-                "Delivery analytics",
-                "Contact management",
-                "Priority support",
+                "Unlimited automations","Up to 1,000 contacts",
+                "Gmail, WhatsApp, Telegram","SMS & Zoom included",
+                "AI plain-English setup","Delivery analytics",
+                "Contact management","Priority support",
               ].map(f => (
                 <div key={f} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                  <Check size={13} color="#555" strokeWidth={2.5} />
-                  <span style={{ fontSize: "0.82rem", color: "#555" }}>{f}</span>
+                  <Check size={13} color="#111110" strokeWidth={2.5} />
+                  <span style={{ fontSize: "0.82rem", color: "#111110" }}>{f}</span>
                 </div>
               ))}
             </div>
             <Link href="/signup" style={{
               display: "block", textAlign: "center",
-              background: "#fff", color: "#000",
-              padding: "0.7rem 1rem", borderRadius: 7,
+              background: "#111110", color: "#F9F8F6",
+              padding: "0.7rem 1rem", borderRadius: 8,
               textDecoration: "none", fontWeight: 600,
               fontSize: "0.875rem",
             }}>Get started</Link>
           </div>
 
-          {/* Enterprise placeholder */}
+          {/* Enterprise */}
           <div style={{ padding: "2.5rem 0 2.5rem 2.5rem" }}>
-            <p style={{ fontSize: "1.1rem", fontWeight: 600, color: "#e0e0e0", marginBottom: "0.5rem" }}>Enterprise</p>
-            <p style={{ fontSize: "1.5rem", fontWeight: 700, color: "#fff", letterSpacing: "-0.03em", marginBottom: "0.4rem" }}>Custom</p>
-            <p style={{ fontSize: "0.8rem", color: "#3a3a3a", marginBottom: "2rem" }}>For large teams and agencies</p>
+            <p style={{ fontSize: "1rem", fontWeight: 500, color: "#111110", marginBottom: "0.5rem" }}>Enterprise</p>
+            <p style={{ fontSize: "1.5rem", fontWeight: 600, color: "#111110", letterSpacing: "-0.03em", marginBottom: "0.4rem" }}>Custom</p>
+            <p style={{ fontSize: "0.8rem", color: "#A8A59F", marginBottom: "2rem" }}>For large teams and agencies</p>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "2.5rem" }}>
               {["Everything in Pro","Custom contact limits","Dedicated support","SLA & onboarding"].map(f => (
                 <div key={f} style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
-                  <Check size={13} color="#444" strokeWidth={2.5} />
-                  <span style={{ fontSize: "0.82rem", color: "#444" }}>{f}</span>
+                  <Check size={13} color="#C0BDB7" strokeWidth={2.5} />
+                  <span style={{ fontSize: "0.82rem", color: "#6B6860" }}>{f}</span>
                 </div>
               ))}
             </div>
             <a href="mailto:hello@runit.app" style={{
               display: "block", textAlign: "center",
-              background: "#111", color: "#888",
-              padding: "0.7rem 1rem", borderRadius: 7,
+              background: "#F0EFec", color: "#6B6860",
+              padding: "0.7rem 1rem", borderRadius: 8,
               textDecoration: "none", fontWeight: 500,
-              fontSize: "0.875rem",
-              border: "1px solid #1f1f1f",
+              fontSize: "0.875rem", border: "1px solid #E4E2DC",
             }}>Contact sales</a>
           </div>
 
           <style>{`
-            .price-grid { }
             @media (max-width: 800px) {
               .price-grid { grid-template-columns: 1fr !important; }
-              .price-grid > div { padding: 2rem 0 !important; border-right: none !important; border-bottom: 1px solid #1a1a1a; }
+              .price-grid > div { padding: 2rem 0 !important; border-right: none !important; border-bottom: 1px solid #E4E2DC; }
               .price-grid > div:last-child { border-bottom: none !important; }
             }
           `}</style>
         </div>
       </section>
 
-      {/* ── Horizontal rule ───────────────────────────────────────────────── */}
-      <div style={{ height: 1, background: "#111", margin: `0 ${PX}` }} />
+      <div style={{ height: 1, background: "#E4E2DC", margin: `0 ${PX}` }} />
 
-      {/* ── Footer — exactly like Linear ──────────────────────────────────── */}
+      {/* ── Footer ────────────────────────────────────────────────────────── */}
       <footer style={{ padding: `3rem ${PX}`, maxWidth: MAX + 96, margin: "0 auto" }}>
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: "2rem" }}>
-          {/* Logo */}
           <div>
             <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.5rem", textDecoration: "none", marginBottom: "0.75rem" }}>
               <RunitLogo size={20} />
-              <span style={{ fontWeight: 700, fontSize: "0.875rem", color: "#fff", letterSpacing: "-0.025em" }}>Runit</span>
+              <span style={{ fontWeight: 700, fontSize: "0.875rem", color: "#111110", letterSpacing: "-0.025em" }}>Runit</span>
             </Link>
-            <p style={{ fontSize: "0.75rem", color: "#2a2a2a" }}>A Black Sheep Co. product</p>
+            <p style={{ fontSize: "0.75rem", color: "#C0BDB7" }}>A Black Sheep Co. product</p>
           </div>
 
-          {/* Link groups */}
           <div style={{ display: "flex", gap: "3.5rem", flexWrap: "wrap" }}>
             {[
               { heading: "Product", links: ["Features", "Pricing", "Changelog", "Roadmap"] },
@@ -765,12 +742,12 @@ export default function Landing() {
               { heading: "Legal", links: ["Privacy", "Terms", "Security"] },
             ].map(({ heading, links }) => (
               <div key={heading}>
-                <p style={{ fontSize: "0.72rem", color: "#2a2a2a", marginBottom: "0.875rem", fontWeight: 500 }}>{heading}</p>
+                <p style={{ fontSize: "0.72rem", color: "#C0BDB7", marginBottom: "0.875rem", fontWeight: 500 }}>{heading}</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                   {links.map(l => (
-                    <a key={l} href="#" style={{ fontSize: "0.78rem", color: "#333", textDecoration: "none", transition: "color 0.15s" }}
-                      onMouseEnter={e => (e.currentTarget.style.color = "#888")}
-                      onMouseLeave={e => (e.currentTarget.style.color = "#333")}
+                    <a key={l} href="#" style={{ fontSize: "0.78rem", color: "#A8A59F", textDecoration: "none", transition: "color 0.15s" }}
+                      onMouseEnter={e => (e.currentTarget.style.color = "#111110")}
+                      onMouseLeave={e => (e.currentTarget.style.color = "#A8A59F")}
                     >{l}</a>
                   ))}
                 </div>
@@ -779,8 +756,8 @@ export default function Landing() {
           </div>
         </div>
 
-        <div style={{ height: 1, background: "#0f0f0f", margin: "2.5rem 0 1.5rem" }} />
-        <p style={{ fontSize: "0.72rem", color: "#222" }}>© 2025 Runit. Built for Africa.</p>
+        <div style={{ height: 1, background: "#E4E2DC", margin: "2.5rem 0 1.5rem" }} />
+        <p style={{ fontSize: "0.72rem", color: "#C0BDB7" }}>© 2025 Runit. Built for Africa.</p>
       </footer>
     </div>
   );

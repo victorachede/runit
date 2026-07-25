@@ -1,18 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
 
 @import "tailwindcss";
 
 :root {
-  --bg: #000000;
-  --surface: #0a0a0a;
-  --surface2: #111111;
-  --border: #1a1a1a;
-  --border2: #252525;
-  --border3: #2e2e2e;
-  --text: #ffffff;
-  --text-secondary: #8a8a8a;
-  --text-muted: #3d3d3d;
-  --text-dim: #555555;
+  --bg: #F9F8F6;
+  --bg-alt: #F3F2EF;
+  --surface: #FFFFFF;
+  --surface2: #F0EFec;
+  --border: #E4E2DC;
+  --border2: #D8D5CE;
+  --text: #111110;
+  --text-secondary: #6B6860;
+  --text-muted: #A8A59F;
+  --accent: #111110;
+  --accent-soft: #EEECEA;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,19 +23,23 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-::selection { background: rgba(255,255,255,0.15); }
+::selection { background: rgba(17,17,16,0.12); }
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: #D0CDC6; border-radius: 4px; }
 
 @keyframes pulse-dot {
-  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
   50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
