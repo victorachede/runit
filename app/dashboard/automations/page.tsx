@@ -50,7 +50,7 @@ export default function AutomationsPage() {
     <div>
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "2rem" }}>
         <div>
-          <h1 className="heading-aw" style={{ fontSize: "1.25rem", color: "#f0f0f0", marginBottom: "0.2rem" }}>Automations</h1>
+          <h1 style={{ fontFamily: "'Audio Wide', sans-serif", fontWeight: 400, fontSize: "1.15rem", color: "#f0f0f0", marginBottom: "0.2rem", letterSpacing: "0.02em" }}>Automations</h1>
           <p style={{ color: "#444", fontSize: "0.85rem" }}>{automations.filter(a => a.active).length} running</p>
         </div>
         <Link href="/dashboard" style={{

@@ -19,7 +19,7 @@ export default function ContactsPage() {
     <div>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "2rem" }}>
         <div>
-          <h1 className="heading-aw" style={{ fontSize: "1.25rem", color: "#f0f0f0", marginBottom: "0.25rem" }}>Contacts</h1>
+          <h1 style={{ fontFamily: "'Audio Wide', sans-serif", fontWeight: 400, fontSize: "1.15rem", color: "#f0f0f0", marginBottom: "0.25rem", letterSpacing: "0.02em" }}>Contacts</h1>
           <p style={{ color: "#64748b", fontSize: "0.9rem" }}>{contacts.length} contacts imported</p>
         </div>
         <div style={{ display: "flex", gap: "0.75rem" }}>

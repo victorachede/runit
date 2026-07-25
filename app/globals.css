@@ -39,10 +39,5 @@ body {
   50%       { opacity: 1;   transform: scale(1); }
 }
 
-/* Audio Wide headings */
-.heading-aw {
-  font-family: 'Audio Wide', sans-serif;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-}
+
 
