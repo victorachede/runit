@@ -10,7 +10,7 @@ export default function BillingPage() {
   return (
     <div>
       <div style={{ marginBottom: "2rem" }}>
-        <h1 style={{ fontSize: "1.5rem", fontWeight: 700, color: "#0f172a", marginBottom: "0.25rem" }}>Billing</h1>
+        <h1 className="heading-aw" style={{ fontSize: "1.25rem", color: "#f0f0f0", marginBottom: "0.25rem" }}>Billing</h1>
         <p style={{ color: "#64748b", fontSize: "0.9rem" }}>Manage your subscription and payment history</p>
       </div>
 
